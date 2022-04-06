@@ -2,7 +2,6 @@ const db = require("./db");
 const helper = require("../helper");
 const config = require("../config");
 const bcrypt = require("bcrypt");
-const randToken = require("rand-token");
 
 const jwtVariable = require("../variables/jwt");
 const { SALT_ROUNDS } = require("../variables/auth");
