@@ -4,21 +4,28 @@ import { Button, FormControl, Input, InputLabel, TextField } from '@material-ui/
 import {useStyles} from './Login-styles'
 import axios from 'axios'
 import validationInfo from '../../components/useForm/validationInfo'
-
-const urlApi = ''
+import {userAuthApi} from '../../common/api'
+import {useHistory} from 'react-router-dom'
 
 const login = (user)=>{
-    return axios.get(urlApi) 
+    return axios.post(userAuthApi, {
+        username: user.username,
+        password: user.password
+    }, {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+          }
+    })
 }
 
 
 export default function Login() {
-
     const [user, setUser] = useState({
         username: '',
         password: ''
     })
 
+    const history = useHistory()
 
     const [errors, setErrors] = useState({})
     const [isConfirm, setIsConfirm] = useState(false);
@@ -35,7 +42,11 @@ export default function Login() {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isConfirm){
-            alert('ok')
+            login(user)
+            .then((res)=> 
+                history.push('/')
+            )
+            .catch((err)=> console.log(err))
         }
     },[errors])
 
