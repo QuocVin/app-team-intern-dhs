@@ -13,9 +13,9 @@ router.get("/", async function (req, res, next) {
 });
 
 /* POST */
-router.post("/", async function (req, res, next) {
+router.post("/create", async function (req, res, next) {
   try {
-    res.json(await userServ.create(req.body));
+    res.json(await userServ.createUser(req.body));
   } catch (err) {
     console.error(`Error while creating users`, err.message);
     next(err);
@@ -23,9 +23,9 @@ router.post("/", async function (req, res, next) {
 });
 
 /* PUT */
-router.put('/:id', async function(req, res, next) {
+router.put('/update/:id', async function(req, res, next) {
   try {
-    res.json(await userServ.update(req.params.id, req.body));
+    res.json(await userServ.updateUser(req.params.id, req.body));
   } catch (err) {
     console.error(`Error while updating users`, err.message);
     next(err);
@@ -33,11 +33,21 @@ router.put('/:id', async function(req, res, next) {
 });
 
 /* DELETE */
-router.delete('/:id', async function(req, res, next) {
+router.delete('/delete/:id', async function(req, res, next) {
   try {
-    res.json(await userServ.remove(req.params.id));
+    res.json(await userServ.deleteUser(req.params.id));
   } catch (err) {
     console.error(`Error while deleting users`, err.message);
+    next(err);
+  }
+});
+
+/* POST */
+router.post("/authentication", async function (req, res, next) {
+  try {
+    res.json(await userServ.authentication(req.body));
+  } catch (err) {
+    console.error(`Error while found users`, err.message);
     next(err);
   }
 });

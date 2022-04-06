@@ -20,6 +20,11 @@ INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `dat
 INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (5,'user3','123456','Trần Tuấn An', '1991-06-14', '09324', 'user3@gmail.com', '2022-03-21', 'USER');
 INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (6,'user4','123456','Lê Anh Tuấn Tú', '1991-04-14', '09324', 'user4@gmail.com', '2022-03-21', 'USER');
 
+CREATE TABLE `app_intern_dhs`.`token` (
+  `id` 			    VARCHAR(50)  NOT NULL,
+  `id_user` 		VARCHAR(50) NOT NULL,
+  `token` 			LONGTEXT NOT NULL,
+PRIMARY KEY (`id`));
 
 CREATE TABLE `app_intern_dhs`.`product` (
   `id` 			    INT NOT NULL AUTO_INCREMENT,
