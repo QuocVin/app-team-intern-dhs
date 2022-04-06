@@ -4,7 +4,7 @@ CREATE TABLE `app_intern_dhs`.`users` (
   `id` 				    INT NOT NULL AUTO_INCREMENT,
   `username` 		    VARCHAR(50) NOT NULL,
   `password` 		    VARCHAR(255) NOT NULL,
-  `name` 			    VARCHAR(255) NOT NULL,
+  `name` 			    VARCHAR(70) NOT NULL,
   `date_ob` 		    datetime NULL,
   `phone` 			    VARCHAR(20) NULL,
   `mail` 			    VARCHAR(50) NULL,
@@ -14,7 +14,11 @@ CREATE TABLE `app_intern_dhs`.`users` (
 PRIMARY KEY (`id`));
 
 INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (1,'admin','123456','Trần Anh Tuấn', '1996-05-22', '0932411', 'admin@gmail.com', '2022-03-15', 'ADMIN');
-INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (1,'quanly1','123456','Nguyễn Tuấn A', '1991-10-14', '09324', 'mana@gmail.com', '2022-03-21', 'MANAGER');
+INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (2,'quanly1','123456','Nguyễn Tuấn Anh', '1991-10-14', '09324', 'mana@gmail.com', '2022-03-21', 'MANAGER');
+INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (3,'user1','123456','Nguyễn Thúy Kiều', '1991-11-14', '09324', 'user1@gmail.com', '2022-03-21', 'USER');
+INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (4,'user2','123456','Lý Văn Bá', '1991-12-14', '09324', 'user2@gmail.com', '2022-03-21', 'USER');
+INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (5,'user3','123456','Trần Tuấn An', '1991-06-14', '09324', 'user3@gmail.com', '2022-03-21', 'USER');
+INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (6,'user4','123456','Lê Anh Tuấn Tú', '1991-04-14', '09324', 'user4@gmail.com', '2022-03-21', 'USER');
 
 
 CREATE TABLE `app_intern_dhs`.`product` (
