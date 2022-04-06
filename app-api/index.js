@@ -1,14 +1,18 @@
 const express = require("express");
 const app = express();
 const port = 4000;
+const cors = require("cors");
 const usersRouter = require("./routes/users-route");
 const productRouter = require("./routes/product-route");
+
 app.use(express.json());
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
+app.use(cors());
+
 app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
