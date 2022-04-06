@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 4000;
 const usersRouter = require("./routes/users-route");
+const productRouter = require("./routes/product-route");
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -13,6 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", usersRouter);
+app.use("/product", productRouter);
 
 
 /* Error handler middleware */
