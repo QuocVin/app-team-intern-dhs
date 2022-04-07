@@ -18,6 +18,7 @@ async function getAll(page = 1) {
   return {
     status: 200,
     data: rows,
+    length: rows.length,
     page: page,
   };
 }

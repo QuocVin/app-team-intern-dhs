@@ -26,6 +26,7 @@ CREATE TABLE `app_intern_dhs`.`product` (
   `descripstion` 	LONGTEXT NULL,
   `price`           DOUBLE NULL,
   `image_path`      LONGTEXT NULL,
+  `quantity_stored` 	    INT DEFAULT 0 NULL,
   `status` 		    VARCHAR(50) DEFAULT 'ON_SALE' NULL,
                     -- ON_SALE
                     -- OUT_OF_STOCK
@@ -53,6 +54,7 @@ CREATE TABLE `app_intern_dhs`.`ticket` (
   `id` 			    INT NOT NULL AUTO_INCREMENT,
   `name` 		    VARCHAR(50) NOT NULL,
   `percent` 	    INT DEFAULT 0 NULL,
+  `date_use` 	    datetime NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (`id`));
 
 CREATE TABLE `app_intern_dhs`.`ticket_product` (
@@ -68,17 +70,7 @@ CREATE TABLE `app_intern_dhs`.`ticket_product` (
     REFERENCES `app_intern_dhs`.`ticket` (`id`)
 );
 
-CREATE TABLE `app_intern_dhs`.`store` (
-  `id` 			    INT NOT NULL AUTO_INCREMENT,
-  `quantity` 	    INT DEFAULT 0 NULL,
-  `id_product`      INT NULL,
-
-   CONSTRAINT `id_product_fk_sto`
-   FOREIGN KEY (`id_product`)
-   REFERENCES `app_intern_dhs`.`product` (`id`),
-PRIMARY KEY (`id`));
-
-CREATE TABLE `app_intern_dhs`.`order` (
+CREATE TABLE `app_intern_dhs`.`order_db` (
   `id` 			    INT NOT NULL AUTO_INCREMENT,
   `total_price`     DOUBLE DEFAULT 0 NULL,
   `created_date` 	datetime NULL DEFAULT CURRENT_TIMESTAMP,
@@ -99,7 +91,7 @@ CREATE TABLE `app_intern_dhs`.`order_detail` (
 
    CONSTRAINT `id_order_fk_or`
    FOREIGN KEY (`id_order`)
-   REFERENCES `app_intern_dhs`.`order` (`id`),
+   REFERENCES `app_intern_dhs`.`order_db` (`id`),
 
    CONSTRAINT `id_product_fk_or`
    FOREIGN KEY (`id_product`)
