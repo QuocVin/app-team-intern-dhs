@@ -7,11 +7,13 @@ const jwtVariable = require("../variables/jwt");
 const { SALT_ROUNDS } = require("../variables/auth");
 const authMethod = require("./token-serv");
 
-async function getAll(page = 1) {
-  const offset = helper.getOffset(page, config.listPerPage);
+async function getAll(params) {
+  const offset = helper.getOffset(params?.page || 1, config.listPerPage);
   const rows = await db.query(
     `SELECT id, username, name, date_ob, phone, mail, created_date, role_name
     FROM users 
+    WHERE name like '%${params?.name || ''}%' AND role_name <> 'ADMIN' 
+    ORDER BY role_name
     LIMIT ${offset},${config.listPerPage}`
   );
 
@@ -19,7 +21,7 @@ async function getAll(page = 1) {
     status: 200,
     data: rows,
     length: rows.length,
-    page: page,
+    page: params?.page || 1,
   };
 }
 
