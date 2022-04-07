@@ -1,0 +1,29 @@
+.product-detail-container {
+    width: auto;
+    height: auto;
+    display: flex;
+}
+.product-img-container {
+    width: 50%;
+    height: 500px;
+    padding: 10px 10px 10px 40px;
+}
+.product-img-container img {
+    width: 450px;
+    height: 450px;
+}
+.product-description-container {
+    width: 50%;
+    height: 500px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+.btn-add-to-cart {
+
+}
+.btn-add-to-cart button {
+    height:30px;
+    border-radius: 5px;
+    background-color: rgb(150, 147, 147);
+    cursor: pointer;
+}

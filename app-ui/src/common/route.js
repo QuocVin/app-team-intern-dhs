@@ -2,7 +2,7 @@ import DashboardView from '../views/Dashboard';
 import HomeView from '../views/Home';
 import LoginView from '../views/Login';
 import RegisterView from '../views/Register';
-
+import ProductDetailView from '../views/ProductDetail'
 import LoginIcon from '@material-ui/icons/PeopleAltOutlined';
 import DashboardIcon from "@material-ui/icons/Dashboard";
 
@@ -17,6 +17,7 @@ export const RouteNames = {
     Home: '',
     Login: 'Login',
     Register: 'Register',
+    ProductDetail: 'ProductDetail'
 }
 
 export const AllRouteNames = {
@@ -28,6 +29,7 @@ export const RoutePaths = {
     Login: ['', RouteNames.Login].join('/'),
     Register: ['', RouteNames.Register].join('/'),
     Home: ['', RouteNames.Home].join('/'),
+    ProductDetail: ['', RouteNames.ProductDetail, RoutesType.Detail].join('/'),
 }
 
 // route
@@ -64,4 +66,13 @@ export const RoutesApp = {
         component: HomeView,
         icon: LoginIcon
     },
+    ProductDetail: {
+        exact: true,
+        id: RouteNames.ProductDetail,
+        label: "ProductDetail",
+        path: RoutePaths.ProductDetail,
+        component: ProductDetailView,
+        icon: LoginIcon
+    },
+
 }
