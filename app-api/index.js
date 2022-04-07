@@ -4,6 +4,9 @@ const port = 4000;
 const cors = require("cors");
 const usersRouter = require("./routes/users-route");
 const productRouter = require("./routes/product-route");
+const brandRouter = require("./routes/brands-route");
+const ticketRouter = require("./routes/ticket-route");
+const orderRouter = require("./routes/order-route");
 
 app.use(express.json());
 app.use(
@@ -19,6 +22,9 @@ app.get("/", (req, res) => {
 
 app.use("/users", usersRouter);
 app.use("/product", productRouter);
+app.use("/brand", brandRouter);
+app.use("/ticket", ticketRouter);
+app.use("/order", orderRouter);
 
 
 /* Error handler middleware */

@@ -5,25 +5,25 @@ const config = require("../config");
 async function getAll(page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT id, name, price, image_path, status
+    `SELECT id, name, descripstion, price, image_path, status, quantity_stored
     FROM product 
     LIMIT ${offset},${config.listPerPage}`
   );
-  const data = helper.emptyOrRows(rows);
-  const meta = { page };
 
   return {
-    data,
-    meta,
+    status: 200,
+    data: rows,
+    length: rows.length,
+    page: page,
   };
 }
 
 async function create(params) {
   const result = await db.query(
     `INSERT INTO product 
-    (name, descripstion, price, image_path) 
+    (name, descripstion, price, image_path, quantity_stored) 
     VALUES 
-    ('${params.name}', '${params.descripstion}', '${params.price}', '${params.image_path}')`
+    ('${params.name}', '${params.descripstion}', '${params.price}', '${params.image_path}', '${params.quantity_stored}')`
   );
 
   if (result.affectedRows) {
@@ -43,8 +43,8 @@ async function create(params) {
 async function update(id, params) {
   const result = await db.query(
     `UPDATE product 
-    SET name="${params.name}", descripstion="${params.descripstion}", 
-    price="${params.price}", image_path="${params.image_path}", status="${params.status}"
+    SET name="${params.name}", descripstion="${params.descripstion}", price="${params.price}", 
+    image_path="${params.image_path}", status="${params.status}", quantity_stored="${params.quantity_stored}"
     WHERE id=${id}`
   );
 
