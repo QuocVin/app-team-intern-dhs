@@ -8,7 +8,7 @@ import store from "../src/helpers/store";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store} >
       <CssBaseline />
       <App />
   </Provider>,

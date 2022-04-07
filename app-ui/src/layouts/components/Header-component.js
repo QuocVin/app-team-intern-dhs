@@ -14,6 +14,8 @@ import {
   MenuList,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import { withStyles } from "@material-ui/core/styles";
+import Badge from "@material-ui/core/Badge";
 import React from "react";
 import { useHistory } from "react-router";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -23,6 +25,7 @@ import cookies from "react-cookies";
 import LOGO from "../../assets/images/dhs_logo.png";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Tooltip from "@material-ui/core/Tooltip";
+import { Link } from "react-router-dom";
 
 const MENU = [
   { id: "san_pham", label: "Sản phẩm" },
@@ -33,6 +36,14 @@ const MENU = [
   { id: "gioi_thieu", label: "Giới thiệu" },
   { id: "lien_he", label: "Liên hệ" },
 ];
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 5,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: "0 4px",
+  },
+}))(Badge);
 
 export default function ({ classes, open, setOpen, mainRef }) {
   const trigger = useScrollTrigger({ target: mainRef });
@@ -112,10 +123,14 @@ export default function ({ classes, open, setOpen, mainRef }) {
         </Popper>
       </div>
       <div>
-        <Tooltip>
-          <IconButton>
-            <ShoppingCartIcon />
-          </IconButton>
+        <Tooltip title="Cart">
+          <Link to="/cart">
+            <IconButton aria-label="cart">
+              <StyledBadge badgeContent={1} color="secondary">
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          </Link>
         </Tooltip>
       </div>
       {/* <Button onClick={() => handleLogin_click('/Login')} > <Typography variant="subtitle1" style={{ textTransform: 'none' }}>Đăng nhập</Typography> </Button>

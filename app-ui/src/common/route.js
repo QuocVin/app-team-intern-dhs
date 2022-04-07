@@ -3,6 +3,7 @@ import HomeView from '../views/Home';
 import LoginView from '../views/Login';
 import RegisterView from '../views/Register';
 import ProductDetailView from '../views/ProductDetail'
+import CartView from '../views/Cart'
 import LoginIcon from '@material-ui/icons/PeopleAltOutlined';
 import DashboardIcon from "@material-ui/icons/Dashboard";
 
@@ -17,7 +18,8 @@ export const RouteNames = {
     Home: '',
     Login: 'Login',
     Register: 'Register',
-    ProductDetail: 'ProductDetail'
+    ProductDetail: 'ProductDetail',
+    Cart: 'Cart',
 }
 
 export const AllRouteNames = {
@@ -30,6 +32,7 @@ export const RoutePaths = {
     Register: ['', RouteNames.Register].join('/'),
     Home: ['', RouteNames.Home].join('/'),
     ProductDetail: ['', RouteNames.ProductDetail, RoutesType.Detail].join('/'),
+    Cart: ['', RouteNames.Cart, RoutesType.Cart].join('/'),
 }
 
 // route
@@ -72,6 +75,14 @@ export const RoutesApp = {
         label: "ProductDetail",
         path: RoutePaths.ProductDetail,
         component: ProductDetailView,
+        icon: LoginIcon
+    },
+    Cart: {
+        exact: true,
+        id: RouteNames.Cart,
+        label: "Cart",
+        path: RoutePaths.Cart,
+        component: CartView,
         icon: LoginIcon
     },
 

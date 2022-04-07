@@ -33,6 +33,12 @@ export const useStyles = makeStyles((theme) => ({
       },
       "& .MuiButton-text": {
         color: "white",
+      },
+      "& .MuiIconButton-root" : {
+        color: "white",
+      },
+      "& .MuiIconButton-root:hover" : {
+        color: "red",
       }
 
     },
