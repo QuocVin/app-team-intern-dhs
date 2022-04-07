@@ -113,7 +113,10 @@ async function authentication(user) {
     );
 
     if (!accessToken) {
-      return { mess: "Đăng nhập không thành công, vui lòng thử lại." };
+      return {
+        status: 400,
+        mess: "Đăng nhập không thành công, vui lòng thử lại."
+      };
     }
 
     return {
@@ -122,7 +125,10 @@ async function authentication(user) {
       accessToken,
     };
   } else {
-    return { mess: "Mật khẩu không chính xác" };
+    return {
+      status: 400,
+      mess: "Mật khẩu không chính xác"
+    };
   }
 }
 
