@@ -1,9 +1,13 @@
 const db = require("./db");
+const helper = require("../helper");
+const config = require("../config");
 
-async function getAll() {
+async function getAll(page = 1) {
+  const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT id, total_price, created_date, id_user
-    FROM order_db`
+    FROM order_db
+    LIMIT ${offset},${config.listPerPage}`
   );
 
   return {
@@ -73,9 +77,26 @@ async function remove(id) {
   }
 }
 
+async function getOrderByUser(id_user, page) {
+  const offset = helper.getOffset(page, config.listPerPage);
+  const rows = await db.query(
+    `SELECT id, total_price, created_date, id_user
+    FROM order_db
+    WHERE id_user = ${id_user}
+    LIMIT ${offset},${config.listPerPage}`
+  );
+
+  return {
+    status: 200,
+    data: rows,
+    length: rows.length,
+  };
+}
+
 module.exports = {
   getAll,
   create,
   update,
   remove,
+  getOrderByUser,
 };
