@@ -2,11 +2,20 @@ const db = require("./db");
 const helper = require("../helper");
 const config = require("../config");
 
-async function getAll(page = 1) {
-  const offset = helper.getOffset(page, config.listPerPage);
+async function getAll(params) {
+  const offset = helper.getOffset(params?.page || 1, config.listPerPage);
+  let search = ''
+  if (params?.from && params?.to) {
+    search += ` AND (price BETWEEN ${params?.from} AND ${params?.to})`
+  }
+  if (params?.brand) {
+    search += ` AND id_brand = ${params.brand}`
+  }
+
   const rows = await db.query(
-    `SELECT id, name, descripstion, price, image_path, status, quantity_stored
+    `SELECT id, name, descripstion, price, image_path, status, quantity_stored, id_brand
     FROM product 
+    WHERE name like '%${params?.name || ''}%' ${search}
     LIMIT ${offset},${config.listPerPage}`
   );
 
@@ -14,16 +23,29 @@ async function getAll(page = 1) {
     status: 200,
     data: rows,
     length: rows.length,
-    page: page,
+    page: params?.page || 1,
+  };
+}
+
+async function getById(params) {
+  const rows = await db.query(
+    `SELECT id, name, descripstion, price, image_path, status, quantity_stored, id_brand
+    FROM product 
+    WHERE id = ${params.id}`
+  );
+
+  return {
+    status: 200,
+    data: rows[0],
   };
 }
 
 async function create(params) {
   const result = await db.query(
     `INSERT INTO product 
-    (name, descripstion, price, image_path, quantity_stored) 
+    (name, descripstion, price, image_path, quantity_stored, id_brand) 
     VALUES 
-    ('${params.name}', '${params.descripstion}', '${params.price}', '${params.image_path}', '${params.quantity_stored}')`
+    ('${params.name}', '${params.descripstion}', '${params.price}', '${params.image_path}', '${params.quantity_stored}', '${params.id_brand}')`
   );
 
   if (result.affectedRows) {
@@ -79,6 +101,7 @@ async function remove(id) {
 
 module.exports = {
   getAll,
+  getById,
   create,
   update,
   remove,

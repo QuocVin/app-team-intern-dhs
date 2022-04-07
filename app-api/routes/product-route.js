@@ -4,9 +4,19 @@ const productServ = require("../services/product-serv");
 
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await productServ.getAll(req.query.page));
+    console.info('sad', req.query)
+    res.json(await productServ.getAll(req.query));
   } catch (err) {
     console.error(`Error while getting products `, err.message);
+    next(err);
+  }
+});
+
+router.get("/detail/:id", async function (req, res, next) {
+  try {
+    res.json(await productServ.getById(req.params));
+  } catch (err) {
+    console.error(`Error while getting product `, err.message);
     next(err);
   }
 });
