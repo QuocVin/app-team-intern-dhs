@@ -7,18 +7,17 @@ import {
     ListItemText,
     Toolbar,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { RoutesApp } from "../../common/route"
-import { useStore } from "react-redux";
+import { routeDrawer } from "../../common/route"
+import { useSelector, useStore } from "react-redux";
 import cookies from 'react-cookies';
 
 export default function ({ classes, open }) {
     const history = useHistory();
-
-    const [childDrawer, setChildDrawer] = React.useState(
-        Object.values(RoutesApp)
-    );
+    
+    
+    const [childDrawer, setChildDrawer] = React.useState([]);
 
     // chọn mục trên drawer
     const handleItem_click = ({ id, path }) => {
@@ -28,6 +27,12 @@ export default function ({ classes, open }) {
             history.goBack();
         }
     };
+    const isLogin = useSelector(state => state.loginState.isLogin)
+
+    useEffect(() => {
+        setChildDrawer(Object.values(routeDrawer))
+    }, [])
+    
 
     return (
         <Drawer
@@ -43,21 +48,19 @@ export default function ({ classes, open }) {
             <div className={classes.drawerContainer}>
                 <List>
                     {childDrawer.map((route, idx) => {
-                        const icon = route.bigIcon ? (
-                            <route.bigIcon
-                                fill="#3f51b5"
-                                stroke="#3f51b5"
-                                width={24}
-                                height={24}
-                            />
-                        ) : (
-                            <route.icon color="primary" />
-                        );
-
+                        // if(isLogin){
+                        //     if(!route.showWhenLogin){
+                        //         return null
+                        //     }
+                        // }else{
+                        //     if(!route.showWhenNotLogin){
+                        //         return null
+                        //     }
+                        // }
                         return (
                             <div key={route.id + idx}>
                                 <ListItem button onClick={() => handleItem_click(route)} >
-                                    <ListItemIcon>{icon}</ListItemIcon>
+                                    <ListItemIcon><route.icon color="primary" /></ListItemIcon>
                                     <ListItemText primary={route.label} />
                                 </ListItem>
                                 <Divider />

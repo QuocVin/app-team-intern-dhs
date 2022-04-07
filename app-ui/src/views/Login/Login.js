@@ -1,70 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import Container from '@material-ui/core/Container'
-import { Button, FormControl, Input, InputLabel, TextField } from '@material-ui/core';
+import { AppBar, Paper, Tab, Tabs } from '@material-ui/core';
+import React from 'react';
+import TabPanel from '../../components/TabPanel';
 import {useStyles} from './Login-styles'
-import axios from 'axios'
-import validationInfo from '../../components/useForm/validationInfo'
-import {userAuthApi} from '../../common/api'
-import {useHistory} from 'react-router-dom'
+import FormLogin from '../../components/FormLogin'
+import FormRegister from '../../components/FormRegister';
 
-const login = (user)=>{
-    return axios.post(userAuthApi, {
-        username: user.username,
-        password: user.password
-    }, {
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-          }
-    })
-}
-
+function a11yProps(index) {
+    return {
+      id: `wrapped-tab-${index}`,
+      'aria-controls': `wrapped-tabpanel-${index}`,
+    };
+  }
 
 export default function Login() {
-    const [user, setUser] = useState({
-        username: '',
-        password: ''
-    })
-
-    const history = useHistory()
-
-    const [errors, setErrors] = useState({})
-    const [isConfirm, setIsConfirm] = useState(false);
-    const handleSubmit = (e)=>{
-        e.preventDefault()
-        setErrors(validationInfo(user))
-        setIsConfirm(true)
-        
-    }
-    const handleChange = (e)=>{
-        const {value, name} = e.target
-        setUser({...user, [name]: value})
-    }
-
-    useEffect(() => {
-        if(Object.keys(errors).length === 0 && isConfirm){
-            login(user)
-            .then((res)=> 
-                history.push('/')
-            )
-            .catch((err)=> console.log(err))
-        }
-    },[errors])
 
     const classes = useStyles()
+
+    const [value, setValue] = React.useState('one');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    
     return (
         <div className={classes.container}>
-            <h1 className={classes.title}>Login</h1>
-            <form className={classes.form} onSubmit={handleSubmit}>
-                <TextField  label="Username" error={errors.username ? true: false } variant='outlined' name='username' value={user.username} onChange={handleChange} className={classes.input}/>
-                {errors.username && <span className={classes.errorMessage}>{errors.username}</span>}
-
-                <TextField type={'password'} error={errors.password ? true: false} variant='outlined' label="Password" name='password' value={user.password} onChange={handleChange} className={classes.input}/>
-                {errors.password && <span className={classes.errorMessage}>{errors.password}</span>}
-
-                <Button variant="contained" type='Submit' color="primary" disableElevation className={classes.button}>
-                    Submit
-                </Button>
-            </form>
+            <Paper square>
+                <Tabs
+                    className={classes.indicator}
+                    value={value}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={handleChange}
+                    aria-label="Tab login page"
+                    variant='fullWidth'
+                >
+                    <Tab fullWidth={true} label="Login" value="one" {...a11yProps("one")}/>
+                    <Tab fullWidth={true} label="Register" value="two" {...a11yProps("two")}/>
+                </Tabs>
+            </Paper>
+            <TabPanel value={value} index="one">
+                <FormLogin/>
+            </TabPanel>
+            <TabPanel value={value} index="two">
+                <FormRegister callback={()=>setValue("one")}/>
+            </TabPanel>
         </div>
     )
 }
