@@ -20,6 +20,10 @@
   INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (5,'user3','123456','Trần Tuấn An', '1991-06-14', '09324', 'user3@gmail.com', '2022-03-21', 'USER');
   INSERT INTO `app_intern_dhs`.`users` (`id`, `username`, `password`, `name`, `date_ob`, `phone`, `mail`, `created_date`, `role_name`) VALUES (6,'user4','123456','Lê Anh Tuấn Tú', '1991-04-14', '09324', 'user4@gmail.com', '2022-03-21', 'USER');
 
+  CREATE TABLE `app_intern_dhs`.`brands` (
+    `id` 			    INT NOT NULL AUTO_INCREMENT,
+    `name` 		    VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`));
 
   CREATE TABLE `app_intern_dhs`.`product` (
     `id` 			    INT NOT NULL AUTO_INCREMENT,
@@ -28,24 +32,15 @@
     `price`           DOUBLE NULL,
     `image_path`      LONGTEXT NULL,
     `quantity_stored` 	    INT DEFAULT 0 NULL,
+    `id_brand`      INT NOT NULL,
     `status` 		    VARCHAR(50) DEFAULT 'ON_SALE' NULL,
                       -- ON_SALE
                       -- OUT_OF_STOCK
-  PRIMARY KEY (`id`));
 
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`) VALUES ('dien thoai 1','mo ta ve dien thoai 1','10000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '30');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`) VALUES ('dien thoai 2','mo ta ve dien thoai 2','11000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '33');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`) VALUES ('dien thoai 3','mo ta ve dien thoai 3','12000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '54');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`) VALUES ('dien thoai 4','mo ta ve dien thoai 4','13000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '32');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`) VALUES ('dien thoai 5','mo ta ve dien thoai 5','14000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '12');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`) VALUES ('dien thoai 6','mo ta ve dien thoai 6','15000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '6');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`) VALUES ('dien thoai 7','mo ta ve dien thoai 7','16000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '17');
-
-
-  CREATE TABLE `app_intern_dhs`.`brands` (
-    `id` 			    INT NOT NULL AUTO_INCREMENT,
-    `name` 		    VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`));
+    CONSTRAINT `id_brand_fk_pro`
+    FOREIGN KEY (`id_brand`)
+    REFERENCES `app_intern_dhs`.`brands` (`id`),
+PRIMARY KEY (`id`));
 
   INSERT INTO `app_intern_dhs`.`brands` (`name`) VALUES ('Iphone');
   INSERT INTO `app_intern_dhs`.`brands` (`name`) VALUES ('Samsum');
@@ -53,61 +48,70 @@
   INSERT INTO `app_intern_dhs`.`brands` (`name`) VALUES ('Nokia');
 
 
-  CREATE TABLE `app_intern_dhs`.`brand_product` (
-      `id_brand` INT NOT NULL,
-      `id_product` INT NULL,
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 1','mo ta ve dien thoai 1','10000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '30', '1');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 2','mo ta ve dien thoai 2','11000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '33', '2');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 3','mo ta ve dien thoai 3','12000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '54', '3');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 4','mo ta ve dien thoai 4','13000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '32', '3');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 5','mo ta ve dien thoai 5','14000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '12', '3');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 6','mo ta ve dien thoai 6','15000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '6', '2');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 7','mo ta ve dien thoai 7','16000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '17', '3');
 
-      CONSTRAINT `id_product_fk_bra`
-      FOREIGN KEY (`id_product`)
-      REFERENCES `app_intern_dhs`.`product` (`id`),
+
+  -- CREATE TABLE `app_intern_dhs`.`brand_product` (
+  --     `id_brand` INT NOT NULL,
+  --     `id_product` INT NULL,
+
+  --     CONSTRAINT `id_product_fk_bra`
+  --     FOREIGN KEY (`id_product`)
+  --     REFERENCES `app_intern_dhs`.`product` (`id`),
       
-      CONSTRAINT `id_brand_fk_pro`
-      FOREIGN KEY (`id_brand`)
-      REFERENCES `app_intern_dhs`.`brands` (`id`)
-  );
+  --     CONSTRAINT `id_brand_fk_pro`
+  --     FOREIGN KEY (`id_brand`)
+  --     REFERENCES `app_intern_dhs`.`brands` (`id`)
+  -- );
 
-  INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('1', '1');
-  INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('2', '2');
-  INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('3', '3');
-  INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('4', '4');
-  INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('1', '5');
-  INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('1', '6');
-  INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('2', '7');
-
-
-  CREATE TABLE `app_intern_dhs`.`ticket` (
-    `id` 			    INT NOT NULL AUTO_INCREMENT,
-    `name` 		    VARCHAR(50) NOT NULL,
-    `percent` 	    INT DEFAULT 0 NULL,
-    `date_use` 	    datetime NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
-  INSERT INTO `app_intern_dhs`.`ticket` (`name`, `percent`, `date_use`) VALUES ('ma giam gia 1', '10', '2022-04-15');
-  INSERT INTO `app_intern_dhs`.`ticket` (`name`, `percent`, `date_use`) VALUES ('ma giam gia 2', '12', '2022-04-20');
-  INSERT INTO `app_intern_dhs`.`ticket` (`name`, `percent`, `date_use`) VALUES ('ma giam gia 3', '15', '2022-04-25');
-  INSERT INTO `app_intern_dhs`.`ticket` (`name`, `percent`, `date_use`) VALUES ('ma giam gia 4', '20', '2022-04-19');
+  -- INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('1', '1');
+  -- INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('2', '2');
+  -- INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('3', '3');
+  -- INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('4', '4');
+  -- INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('1', '5');
+  -- INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('1', '6');
+  -- INSERT INTO `app_intern_dhs`.`brand_product` (`id_brand`, `id_product`) VALUES ('2', '7');
 
 
-  CREATE TABLE `app_intern_dhs`.`ticket_product` (
-      `id_ticket` INT NOT NULL,
-      `id_product` INT NULL,
+  -- CREATE TABLE `app_intern_dhs`.`ticket` (
+  --   `id` 			    INT NOT NULL AUTO_INCREMENT,
+  --   `name` 		    VARCHAR(50) NOT NULL,
+  --   `percent` 	    INT DEFAULT 0 NULL,
+  --   `date_use` 	    datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  -- PRIMARY KEY (`id`));
 
-      CONSTRAINT `id_product_fk_tic`
-      FOREIGN KEY (`id_product`)
-      REFERENCES `app_intern_dhs`.`product` (`id`),
+  -- INSERT INTO `app_intern_dhs`.`ticket` (`name`, `percent`, `date_use`) VALUES ('ma giam gia 1', '10', '2022-04-15');
+  -- INSERT INTO `app_intern_dhs`.`ticket` (`name`, `percent`, `date_use`) VALUES ('ma giam gia 2', '12', '2022-04-20');
+  -- INSERT INTO `app_intern_dhs`.`ticket` (`name`, `percent`, `date_use`) VALUES ('ma giam gia 3', '15', '2022-04-25');
+  -- INSERT INTO `app_intern_dhs`.`ticket` (`name`, `percent`, `date_use`) VALUES ('ma giam gia 4', '20', '2022-04-19');
+
+
+  -- CREATE TABLE `app_intern_dhs`.`ticket_product` (
+  --     `id_ticket` INT NOT NULL,
+  --     `id_product` INT NULL,
+
+  --     CONSTRAINT `id_product_fk_tic`
+  --     FOREIGN KEY (`id_product`)
+  --     REFERENCES `app_intern_dhs`.`product` (`id`),
       
-      CONSTRAINT `id_ticket_fk_pro`
-      FOREIGN KEY (`id_ticket`)
-      REFERENCES `app_intern_dhs`.`ticket` (`id`)
-  );
+  --     CONSTRAINT `id_ticket_fk_pro`
+  --     FOREIGN KEY (`id_ticket`)
+  --     REFERENCES `app_intern_dhs`.`ticket` (`id`)
+  -- );
 
-  INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('1', '1');
-  INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('2', '2');
-  INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('3', '3');
-  INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('4', '4');
-  INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('1', '5');
-  INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('1', '6');
-  INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('4', '7');
+  -- INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('1', '1');
+  -- INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('2', '2');
+  -- INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('3', '3');
+  -- INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('4', '4');
+  -- INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('1', '5');
+  -- INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('1', '6');
+  -- INSERT INTO `app_intern_dhs`.`ticket_product` (`id_ticket`, `id_product`) VALUES ('4', '7');
 
 
   CREATE TABLE `app_intern_dhs`.`order_db` (
