@@ -1,4 +1,4 @@
-import { Drawer, Icon, List, ListItem, ListItemIcon, ListItemText, SvgIcon } from '@material-ui/core'
+import { Box, Divider, Drawer, Icon, List, ListItem, ListItemIcon, ListItemText, SvgIcon } from '@material-ui/core'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import DraftsIcon from '@material-ui/icons/Drafts'
@@ -37,19 +37,24 @@ const ProfileNav = () => {
         history.push(path)
      }
   return (
-    <List component={'nav'}>
-    {
-        listNavItems.map((item, index)=>{
-            return <ListItem key={index} button component="a" onClick={() => handle(item.link)} className={classes.selected}>
-                    <ListItemIcon>
-                        <SvgIcon color='primary' component={item.icon}/>
-                    </ListItemIcon>
-                    <ListItemText primary={item.text}/>
-                </ListItem>
-        })
-    }
-        
-    </List>
+      <Box borderRight={1} height={'100%'}>
+        <List component={'nav'}>
+            {
+                listNavItems.map((item, index)=>{
+                    return <>
+                            <ListItem key={index} button component="a" onClick={() => handle(item.link)} className={classes.selected}>
+                                <ListItemIcon>
+                                    <SvgIcon color='primary' component={item.icon}/>
+                                </ListItemIcon>
+                                <ListItemText primary={item.text}/>
+                            </ListItem>
+                        </>
+                })
+            }
+                
+            </List>
+      </Box>
+    
   )
 }
 

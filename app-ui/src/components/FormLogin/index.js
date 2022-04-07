@@ -50,14 +50,17 @@ export default function Login() {
         if(Object.keys(errors).length === 0 && isConfirm){
             doLogin(user)
             .then((res)=>{
-                console.log(res);
-                const {accessToken, data} = res
-
-                // dispatch(login({
-                //     accessToken,
-                //     data
-                // }))
-                // history.push('/')
+                const {data, status, accessToken, mess}= res.data
+                if(status && status === 200){
+                    dispatch(login({
+                        accessToken,
+                        data
+                    }))
+                    history.push('/')
+                }
+                else{
+                    alert(mess)
+                }
             })
             .catch((err)=> console.log(err))
         }

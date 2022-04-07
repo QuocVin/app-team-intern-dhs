@@ -1,6 +1,7 @@
-import { Grid } from '@material-ui/core'
+import { Divider, Grid } from '@material-ui/core'
 import React from 'react'
 import { Route, Switch } from 'react-router'
+import ProfileChange from '../../components/ProfileChange'
 import ProfileInfo from '../../components/ProfileInfo'
 import ProfileNav from '../../components/ProfileNav'
 
@@ -16,7 +17,7 @@ const Profile = () => {
                     <ProfileInfo/>
                 </Route>
                 <Route path="/ChangeProfile">
-                    asd
+                    <ProfileChange/>
                 </Route>
                 <Route path="/ChangePassword">
                     <ProfileInfo/>

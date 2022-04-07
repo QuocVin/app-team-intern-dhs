@@ -4,4 +4,6 @@ export const userAuthApi = apiUrl + '/users/authentication'
 
 export const userCreateApi = apiUrl +'/users/create'
 
+export const userUpdate = apiUrl + '/update'
+
 
