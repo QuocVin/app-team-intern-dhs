@@ -1,2 +1,2 @@
-# tour-app
-use django and react
+# app-team-intern-dhs
+use React JS and node JS Express
