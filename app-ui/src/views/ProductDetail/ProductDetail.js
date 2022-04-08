@@ -1,14 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./ProductDetail.css";
+import apiAxios from "../../api";
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState();
   useEffect(() => {
     (async () => {
       try {
-        // const res = await productAxios.get(`/ProductDetail/${id}`);
-        // setProduct(res.data);
+        const res = await apiAxios.get(`/ProductDetail/${id}`);
+        console.log(res.data);
+        setProduct(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -35,7 +37,9 @@ export default function ProductDetail() {
           of preparing it.
         </p>
         <div className="btn-add-to-cart">
-          <button>Add to CART</button>
+          <Link to="/cart">
+            <button>Add to CART</button>
+          </Link>
         </div>
       </div>
     </div>

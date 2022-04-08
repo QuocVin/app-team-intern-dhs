@@ -68,6 +68,7 @@ export default function Cart() {
       <div class="pay-container">
         <h2>Tổng thanh toán:</h2>
         <button>Pay</button>
+        <button className = "btn-other-product">Mua thêm sản phẩm</button>
       </div>
     </div>
   );

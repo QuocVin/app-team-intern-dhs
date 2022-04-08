@@ -31,3 +31,7 @@
   cursor: pointer;
   border-radius: 10px;
 }
+.btn-other-product {
+    background-color:  rgb(28, 167, 0) !important;
+    margin-top: 10px;
+}
