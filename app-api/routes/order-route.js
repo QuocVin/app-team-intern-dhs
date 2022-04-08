@@ -51,7 +51,7 @@ router.get("/get-by-user/:id_user", async function (req, res, next) {
 
 router.get("/order-detail/:id_order", async function (req, res, next) {
   try {
-    res.json(await orderServ.getOrderDetail(req.params));
+    res.json(await orderServ.getOrderDetail(req.params, req.query.page));
   } catch (err) {
     console.error(`Error while getting order `, err.message);
     next(err);

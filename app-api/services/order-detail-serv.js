@@ -1,23 +1,28 @@
 const db = require("./db");
+const helper = require("../helper");
+const config = require("../config");
 
-async function getAll() {
+async function getAll(page = 1) {
+  const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT quantity, price_products, id_order, id_product
-    FROM order_detail`
+    `SELECT quantity, id_order, id_product
+    FROM order_detail
+    LIMIT ${offset},${config.listPerPage}`
   );
 
   return {
     status: 200,
     data: rows,
     length: rows.length,
+    page: page
   };
 }
 
 async function create(params) {
   params.map((p) => {
     db.query(
-      `INSERT INTO order_detail (quantity, price_products, id_order, id_product) 
-    VALUES ('${p.quantity}', '${p.price_products}','${p.id_order}', '${p.id_product}')`
+      `INSERT INTO order_detail (quantity, id_order, id_product) 
+    VALUES ('${p.quantity}', '${p.id_order}', '${p.id_product}')`
     );
   })
 
@@ -32,7 +37,7 @@ async function create(params) {
 async function update(id, params) {
   const result = await db.query(
     `UPDATE order_detail 
-    SET quantity="${params.quantity}", price_products="${params.price_products}", 
+    SET quantity="${params.quantity}"
     WHERE id=${id}`
   );
 
