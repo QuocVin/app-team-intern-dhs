@@ -2,7 +2,7 @@ const config = {
   db: {
     host: "127.0.0.1",
     user: "root",
-    password: "123456",
+    password: "thang123",
     database: "app_intern_dhs",
   },
   listPerPage: 6,
