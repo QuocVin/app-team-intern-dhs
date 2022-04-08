@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useStyles } from './style'
 import validationInfo from './validationInfo'
 import axios from 'axios'
-import { userUpdate as userUpdateApi } from '../../common/api'
+
 import { useHistory } from 'react-router'
 import { updateUser } from '../../redux/login/loginSlice'
 import ProfileTitle from '../ProfileTitle'
 
 const changeProfile = (user)=>{
-    return axios.put(userUpdateApi+ '/' + user.id, user,{
+    return axios.put('/' + user.id, user,{
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         }

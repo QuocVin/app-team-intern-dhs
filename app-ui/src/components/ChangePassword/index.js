@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from '@material-ui/core'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { userAuthApi } from '../../common/api'
+
 import ProfileTitle from '../ProfileTitle'
 import { useStyles } from './style'
 import { validationInfo } from './validationInfo'
@@ -32,7 +32,7 @@ function ChangePassword() {
     const checkUser = (user)=>{
         let flag = false
 
-        axios.post(userAuthApi,user).then(res=>{
+        axios.post('',user).then(res=>{
             const {status} = res.data
             if(status && status === 200){
                 flag = true

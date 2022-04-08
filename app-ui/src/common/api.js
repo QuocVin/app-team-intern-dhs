@@ -1,11 +1,18 @@
-import axios from "axios"
+import axios from 'axios';
 
-export const apiUrl = 'http://localhost:4000'
+export const endpoints = {
+    'login': '/users/authentication',
+    'register': '/users/create',
+    // 'user-info': (userId) => `/users/detail?id=${userId}`,
+    // 'user-update': '/users/update',
+    // 'user-chart': '/api/users/chartRole',
+    // 'user-search': '/api/users/searchName',
 
-export const userAuthApi = apiUrl + '/users/authentication'
+    'product': '/product',
+    'ordersByUser': '/order/get-by-user/',
+    'orderDetail': '/order/order-detail/',
+}
 
-export const userCreateApi = apiUrl +'/users/create'
-
-export const userUpdate = apiUrl + '/update'
-
-
+export const API = axios.create({
+    baseURL: 'http://127.0.0.1:4000/',
+})

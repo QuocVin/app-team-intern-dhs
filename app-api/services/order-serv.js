@@ -93,10 +93,48 @@ async function getOrderByUser(id_user, page) {
   };
 }
 
+// hóa đơn chi tiết
+async function getOrderDetail(params) {
+  const order_db = await db.query(
+    `SELECT *
+    FROM order_db
+    WHERE id = ${params.id_order}`
+  );
+
+  const order_detail = await db.query(
+    `SELECT *
+    FROM order_detail
+    WHERE id_order = ${params.id_order}`
+  );
+  order_db[0].order_detail = order_detail
+
+  let arr_pro_id = []
+  order_detail.map((o) => {
+    arr_pro_id.push(o.id_product)
+  })
+
+  const product = await db.query(
+    `SELECT p.id as id_product, p.name, p.price, od.quantity, b.name as brand
+    FROM order_detail od
+    INNER JOIN product p ON p.id = od.id_product
+    INNER JOIN brands b ON b.id = p.id_brand
+    WHERE p.id in (${arr_pro_id}) AND od.id_order = ${params.id_order}`
+  );
+  order_db[0].list_product = product
+  order_db[0].length = product.length
+
+
+  return {
+    status: 200,
+    data: order_db[0],
+  };
+}
+
 module.exports = {
   getAll,
   create,
   update,
   remove,
   getOrderByUser,
+  getOrderDetail,
 };

@@ -8,6 +8,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import Profile from '../views/Profile';
 
 
+
 const RoutesType = {
     New: "new",
     Detail: ":id"
@@ -21,7 +22,8 @@ export const RouteNames = {
     Profile: 'Profile',
     ChangePassword: 'ChangePassword',
     ChangeProfile: 'ChangeProfile',
-    Orders: 'Orders'
+    Orders: 'Orders',
+    OrderDetail: 'OrderDetail',
 }
 
 export const AllRouteNames = {
@@ -36,7 +38,8 @@ export const RoutePaths = {
     Profile: ['', RouteNames.Profile].join('/'),
     ChangePassword: ['', RouteNames.ChangePassword].join('/'),
     ChangeProfile: ['', RouteNames.ChangeProfile].join('/'),
-    Orders: ['', RouteNames.Orders].join('/')
+    Orders: ['', RouteNames.Orders].join('/'),
+    OrderDetail: ['', RouteNames.OrderDetail, RoutesType.Detail].join('/')
 }
 
 // route
@@ -47,7 +50,9 @@ export const RoutesApp = {
         label: "Dashboard",
         path: RoutePaths.Dashboard,
         component: DashboardView,
-        icon: DashboardIcon
+        icon: DashboardIcon,
+        needLogin: false,
+        isLoginRoute: false,
     },
     Login: {
         exact: true,
@@ -55,7 +60,9 @@ export const RoutesApp = {
         label: "Login",
         path: RoutePaths.Login,
         component: LoginView,
-        icon: LoginIcon
+        icon: LoginIcon,
+        needLogin: false,
+        isLoginRoute: true,
     },
     Register: {
         exact: true,
@@ -63,7 +70,9 @@ export const RoutesApp = {
         label: "Register",
         path: RoutePaths.Register,
         component: RegisterView,
-        icon: LoginIcon
+        icon: LoginIcon,
+        needLogin: false,
+        isLoginRoute: true,
     },
     Home: {
         exact: true,
@@ -71,7 +80,9 @@ export const RoutesApp = {
         label: "Home",
         path: RoutePaths.Home,
         component: HomeView,
-        icon: LoginIcon
+        icon: LoginIcon,
+        needLogin: false,
+        isLoginRoute: false,
     },
     Profile: {
         exact: true,
@@ -79,7 +90,9 @@ export const RoutesApp = {
         label: "Profile",
         path: RoutePaths.Profile,
         component: Profile,
-        icon: LoginIcon
+        icon: LoginIcon,
+        needLogin: true,
+        isLoginRoute: false,
     },
     ChangePassword: {
         exact: true,
@@ -87,7 +100,9 @@ export const RoutesApp = {
         label: "Change Password",
         path: RoutePaths.ChangePassword,
         component: Profile,
-        icon: LoginIcon
+        icon: LoginIcon,
+        needLogin: true,
+        isLoginRoute: false,
     },
     ChangeProfile: {
         exact: true,
@@ -95,14 +110,28 @@ export const RoutesApp = {
         label: "Change Profile",
         path: RoutePaths.ChangeProfile,
         component: Profile,
-        icon: LoginIcon
+        icon: LoginIcon,
+        needLogin: true,
+        isLoginRoute: false,
     },Orders: {
         exact: true,
         id: RouteNames.Orders,
         label: "Orders",
         path: RoutePaths.Orders,
         component: Profile,
-        icon: LoginIcon
+        icon: LoginIcon,
+        needLogin: true,
+        isLoginRoute: false,
+    },
+    OrderDetail: {
+        exact: true,
+        id: RouteNames.OrderDetail,
+        label: "Order Detail",
+        path: RoutePaths.OrderDetail,
+        component: Profile,
+        icon: LoginIcon,
+        needLogin: true,
+        isLoginRoute: false,
     }
 }
 

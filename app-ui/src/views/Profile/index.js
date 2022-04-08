@@ -2,6 +2,7 @@ import { Box, Divider, Grid } from '@material-ui/core'
 import React from 'react'
 import { Route, Switch } from 'react-router'
 import ChangePassword from '../../components/ChangePassword'
+import OrderDetail from '../../components/OrderDetail'
 import Orders from '../../components/Orders'
 import ProfileChange from '../../components/ProfileChange'
 import ProfileInfo from '../../components/ProfileInfo'
@@ -27,6 +28,9 @@ const Profile = () => {
                     </Route>
                     <Route path="/Orders">
                         <Orders/>
+                    </Route>
+                    <Route path="/OrderDetail/:id">
+                        <OrderDetail/>
                     </Route>
                 </Switch>
             </Box>

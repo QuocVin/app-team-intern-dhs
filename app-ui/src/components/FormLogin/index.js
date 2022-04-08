@@ -4,13 +4,14 @@ import { Button, FormControl, Input, InputLabel, TextField } from '@material-ui/
 import {useStyles} from './style'
 import axios from 'axios'
 import validationInfo from './validationInfo'
-import {userAuthApi} from '../../common/api'
+
 import {Link, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {login, logout} from '../../redux/login/loginSlice'
+import { API, endpoints } from '../../common/api';
 
 const doLogin = (user)=>{
-    return axios.post(userAuthApi, {
+    return API.post(endpoints['login'], {
         username: user.username,
         password: user.password
     }, {
@@ -74,7 +75,7 @@ export default function Login() {
     const classes = useStyles()
     return (
          isLoging ? <h1>Login processing...</h1>
-            :<div>
+            :<div className={classes.container}>
                 {loginError && <span className={classes.errorMessage}>{loginError}</span>}
                 {isLogin && <h2 onClick={()=>dispatch(logout())}>da login</h2>}
                 <form className={classes.form} onSubmit={handleSubmit}>

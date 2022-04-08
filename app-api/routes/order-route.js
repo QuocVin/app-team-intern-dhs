@@ -49,4 +49,13 @@ router.get("/get-by-user/:id_user", async function (req, res, next) {
   }
 });
 
+router.get("/order-detail/:id_order", async function (req, res, next) {
+  try {
+    res.json(await orderServ.getOrderDetail(req.params));
+  } catch (err) {
+    console.error(`Error while getting order `, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;

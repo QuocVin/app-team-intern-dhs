@@ -1,15 +1,16 @@
 import { Button, TextField } from '@material-ui/core'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { userCreateApi } from '../../common/api'
+
 import validationInfo from './validationInfo'
 import { useStyles } from './style'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
+import { API, endpoints } from '../../common/api'
 
 
 const doRegister = ({username,password,name,date_ob,phone,mail,role_name}) =>{
-    return axios.post(userCreateApi, {
+    return API.post(endpoints['register'], {
         username,password,name,date_ob,phone,mail,role_name
     },{
         headers: {
