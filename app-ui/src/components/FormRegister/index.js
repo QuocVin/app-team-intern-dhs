@@ -31,6 +31,8 @@ const FormRegister = ({callback}) => {
         role_name:"Guest"
     })
 
+    const [isRegisting, setIsRegisting] = useState(false)
+
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -51,6 +53,7 @@ const FormRegister = ({callback}) => {
 
     useEffect(() => {
       if(Object.keys(errors).length === 0 && isConfirm){
+          setIsRegisting(true)
           doRegister(user).then((res)=>{
               callback()
           }).catch(error => {console.log(error);})

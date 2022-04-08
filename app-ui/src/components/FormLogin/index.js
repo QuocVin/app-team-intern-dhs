@@ -27,6 +27,8 @@ export default function Login() {
         password: ''
     })
 
+    const [isLoging, setIsLoging] = useState(false)
+
 
     const dispatch = useDispatch()
     const isLogin = useSelector((state)=> state.loginState.isLogin)
@@ -48,6 +50,7 @@ export default function Login() {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isConfirm){
+            setIsLoging(true)
             doLogin(user)
             .then((res)=>{
                 const {data, status, accessToken, mess}= res.data
@@ -60,6 +63,7 @@ export default function Login() {
                 }
                 else{
                     alert(mess)
+                    setIsLoging(false)
                 }
             })
             .catch((err)=> console.log(err))
@@ -68,21 +72,22 @@ export default function Login() {
 
     const classes = useStyles()
     return (
-        <div>
-            {isLogin && <h2 onClick={()=>dispatch(logout())}>da login</h2>}
-            <form className={classes.form} onSubmit={handleSubmit}>
-                <TextField  label="Username" error={errors.username ? true: false } variant='outlined' name='username' value={user.username} onChange={handleChange} className={classes.input}/>
-                {errors.username && <span className={classes.errorMessage}>{errors.username}</span>}
+         isLogin ? <h1>Loging...</h1>
+            :<div>
+                {isLogin && <h2 onClick={()=>dispatch(logout())}>da login</h2>}
+                <form className={classes.form} onSubmit={handleSubmit}>
+                    <TextField  label="Username" error={errors.username ? true: false } variant='outlined' name='username' value={user.username} onChange={handleChange} className={classes.input}/>
+                    {errors.username && <span className={classes.errorMessage}>{errors.username}</span>}
 
-                <TextField type={'password'} error={errors.password ? true: false} variant='outlined' label="Password" name='password' value={user.password} onChange={handleChange} className={classes.input}/>
-                {errors.password && <span className={classes.errorMessage}>{errors.password}</span>}
-                <div className={classes.forgotPassword}>
-                    <Link to='/'>Forgot password?</Link>
-                </div>        
-                <Button variant="contained" type='Submit' color="primary" disableElevation className={classes.button}>
-                    Login
-                </Button>
-            </form>
-        </div>
+                    <TextField type={'password'} error={errors.password ? true: false} variant='outlined' label="Password" name='password' value={user.password} onChange={handleChange} className={classes.input}/>
+                    {errors.password && <span className={classes.errorMessage}>{errors.password}</span>}
+                    <div className={classes.forgotPassword}>
+                        <Link to='/'>Forgot password?</Link>
+                    </div>        
+                    <Button variant="contained" type='Submit' color="primary" disableElevation className={classes.button}>
+                        Login
+                    </Button>
+                </form>
+            </div>
     )
 }
