@@ -14,6 +14,7 @@ async function getAll(page = 1) {
     status: 200,
     data: rows,
     length: rows.length,
+    page: page
   };
 }
 
@@ -77,7 +78,7 @@ async function remove(id) {
   }
 }
 
-async function getOrderByUser(id_user, page) {
+async function getOrderByUser(id_user, page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT id, total_price, created_date, id_user
@@ -86,25 +87,43 @@ async function getOrderByUser(id_user, page) {
     LIMIT ${offset},${config.listPerPage}`
   );
 
-  return {
-    status: 200,
-    data: rows,
-    length: rows.length,
-  };
+  if (rows.length) {
+    return {
+      status: 200,
+      mess: "lấy thông tin người dùng thành công",
+      data: rows,
+      page: page,
+      length: rows.length,
+    };
+  } else {
+    return {
+      status: 400,
+      mess: "Thông tin người dùng không chính xác",
+    };
+  }
 }
 
 // hóa đơn chi tiết
-async function getOrderDetail(params) {
+async function getOrderDetail(params, page = 1) {
   const order_db = await db.query(
     `SELECT *
     FROM order_db
     WHERE id = ${params.id_order}`
   );
 
+  if (!order_db.length) {
+    return {
+      status: 400,
+      mess: "không tìm thấy thông tin hóa đơn",
+    };
+  }
+
+  const offset = helper.getOffset(page, config.listPerPage);
   const order_detail = await db.query(
     `SELECT *
     FROM order_detail
-    WHERE id_order = ${params.id_order}`
+    WHERE id_order = ${params.id_order}
+    LIMIT ${offset},${config.listPerPage}`
   );
   order_db[0].order_detail = order_detail
 
@@ -118,15 +137,16 @@ async function getOrderDetail(params) {
     FROM order_detail od
     INNER JOIN product p ON p.id = od.id_product
     INNER JOIN brands b ON b.id = p.id_brand
-    WHERE p.id in (${arr_pro_id}) AND od.id_order = ${params.id_order}`
+    WHERE p.id in (${arr_pro_id}) AND od.id_order = ${params.id_order}
+    LIMIT ${offset},${config.listPerPage}`
   );
   order_db[0].list_product = product
   order_db[0].length = product.length
 
-
   return {
     status: 200,
     data: order_db[0],
+    page: page
   };
 }
 

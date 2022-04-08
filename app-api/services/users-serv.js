@@ -134,10 +134,33 @@ async function authentication(user) {
   }
 }
 
+async function getUserById(id) {
+  const result = await db.query(
+    `SELECT *
+      FROM users
+      WHERE id=${id}`
+  );
+
+  if (result.length) {
+    delete result[0].password
+    return {
+      status: 200,
+      mess: "lấy thông tin người dùng thành công",
+      data: result,
+    };
+  } else {
+    return {
+      status: 400,
+      mess: "Không tìm thấy người dùng",
+    };
+  }
+}
+
 module.exports = {
   getAll,
   createUser,
   updateUser,
   deleteUser,
   authentication,
+  getUserById,
 };

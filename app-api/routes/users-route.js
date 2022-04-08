@@ -52,4 +52,13 @@ router.post("/authentication", async function (req, res, next) {
   }
 });
 
+router.get('/user-detail/:id', async function(req, res, next) {
+  try {
+    res.json(await userServ.getUserById(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting user`, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;
