@@ -10,11 +10,17 @@ async function getAll(page = 1) {
     LIMIT ${offset},${config.listPerPage}`
   );
 
+  const total = await db.query(
+    `SELECT count(id) as sl
+    FROM order_db`
+  );
+
   return {
     status: 200,
     data: rows,
     length: rows.length,
-    page: page
+    page: page,
+    total: total[0].sl
   };
 }
 
@@ -143,10 +149,20 @@ async function getOrderDetail(params, page = 1) {
   order_db[0].list_product = product
   order_db[0].length = product.length
 
+  const total = await db.query(
+    `SELECT count(p.id) as sl
+    FROM order_detail od
+    INNER JOIN product p ON p.id = od.id_product
+    INNER JOIN brands b ON b.id = p.id_brand
+    WHERE p.id in (${arr_pro_id}) AND od.id_order = ${params.id_order}
+    LIMIT ${offset},${config.listPerPage}`
+  );
+
   return {
     status: 200,
     data: order_db[0],
-    page: page
+    page: page,
+    total: total[0].sl
   };
 }
 

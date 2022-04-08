@@ -4,7 +4,6 @@ const productServ = require("../services/product-serv");
 
 router.get("/", async function (req, res, next) {
   try {
-    console.info('sad', req.query)
     res.json(await productServ.getAll(req.query));
   } catch (err) {
     console.error(`Error while getting products `, err.message);

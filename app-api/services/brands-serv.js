@@ -1,15 +1,27 @@
 const db = require("./db");
+const helper = require("../helper");
+const config = require("../config");
 
-async function getAll() {
+async function getAll(params) {
+  const offset = helper.getOffset(params?.page || 1, config.listPerPage);
   const rows = await db.query(
     `SELECT id, name
-    FROM brands`
+    FROM brands
+    WHERE name like '%${params?.name || ''}%'
+    LIMIT ${offset},${config.listPerPage}`
+  );
+
+  const total = await db.query(
+    `SELECT count(id) as sl
+    FROM brands
+    WHERE name like '%${params?.name || ''}%'`
   );
 
   return {
     status: 200,
     data: rows,
     length: rows.length,
+    total: total[0].sl
   };
 }
 
