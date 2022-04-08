@@ -1,16 +1,37 @@
 import {  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import OrderItem from './OrderItem'
 import {useStyles} from './style'
 
-
+const getOrders = ({id}, page = 1) =>{
+    const url = 'http://localhost:4000/order/get-by-user/' + id
+    return axios.get(url)
+}
 
 const Orders = () => {
     const classes = useStyles()
+    const [orders, setOrders] = useState([])
+    const user = useSelector(state => state.loginState.user)
+
     const handleOrderItemClick = ()=>{
         
     }
+
+    useEffect(() => {
+      getOrders(user).then(res => {
+          const {data, status} = res.data
+          if(status && status === 200){
+              setOrders(data)
+          }
+      }).catch(err=> console.log(err))
+    }, [orders])
+    
+    
+
+
   return (
     <Paper>
         <TableContainer component={Paper}>
@@ -24,7 +45,11 @@ const Orders = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <OrderItem onClick={handleOrderItemClick}/>
+                    {
+                        orders.map((item,i)=>
+                            <OrderItem item={item} onClick={handleOrderItemClick}/>
+                        )
+                    }
                 </TableBody>
             </Table>
         </TableContainer>

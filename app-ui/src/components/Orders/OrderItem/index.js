@@ -5,12 +5,12 @@ import {useStyles} from './style'
 
 
 
-const OrderItem = ({onClick}) => {
+const OrderItem = ({onClick, item}) => {
   return (
     <TableRow hover={true} onClick={onClick}>
-        <TableCell>Order ID</TableCell>
-        <TableCell>Create date</TableCell>
-        <TableCell>Total price VNĐ</TableCell>
+        <TableCell>{item.id}</TableCell>
+        <TableCell>{item.created_date}</TableCell>
+        <TableCell>{item.total_price} VNĐ</TableCell>
         <TableCell>More info</TableCell>
     </TableRow>
   )
