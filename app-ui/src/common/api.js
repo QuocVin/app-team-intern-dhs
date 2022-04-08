@@ -11,6 +11,8 @@ export const endpoints = {
     'product': '/product',
     'ordersByUser': '/order/get-by-user/',
     'orderDetail': '/order/order-detail/',
+    'updateUser':'/users/update/',
+
 }
 
 export const API = axios.create({

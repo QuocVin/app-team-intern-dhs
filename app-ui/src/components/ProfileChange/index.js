@@ -8,9 +8,10 @@ import axios from 'axios'
 import { useHistory } from 'react-router'
 import { updateUser } from '../../redux/login/loginSlice'
 import ProfileTitle from '../ProfileTitle'
+import { API, endpoints } from '../../common/api'
 
 const changeProfile = (user)=>{
-    return axios.put('/' + user.id, user,{
+    return API.put(endpoints['updateUser']+ user.id, user,{
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         }
@@ -53,7 +54,7 @@ const ProfileChange = () => {
                 }else{
                     setProcessing(false)
                 }
-            }).catch(err => setProcessing(false))
+            }).catch(err =>{setProcessing(false)})
         }
     }, [errors])
     

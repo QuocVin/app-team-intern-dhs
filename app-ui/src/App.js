@@ -37,7 +37,9 @@ function App() {
                       pathname: "/",
                       state: { from: props.location }
                     }}/>
-                  } return <route.component {...props} />
+                  }else{
+                  } 
+                  return <route.component {...props} />
                 }}
                   
               />
