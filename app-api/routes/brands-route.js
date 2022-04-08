@@ -4,7 +4,7 @@ const brandServ = require("../services/brands-serv");
 
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await brandServ.getAll(req.query.page));
+    res.json(await brandServ.getAll(req.query));
   } catch (err) {
     console.error(`Error while getting brand `, err.message);
     next(err);

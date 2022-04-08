@@ -17,11 +17,18 @@ async function getAll(params) {
     LIMIT ${offset},${config.listPerPage}`
   );
 
+  const total = await db.query(
+    `SELECT count(id) as sl
+    FROM users 
+    WHERE name like '%${params?.name || ''}%' AND role_name <> 'ADMIN'`
+  );
+
   return {
     status: 200,
     data: rows,
     length: rows.length,
     page: params?.page || 1,
+    total: total[0].sl
   };
 }
 
