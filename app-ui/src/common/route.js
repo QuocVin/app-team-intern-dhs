@@ -6,6 +6,7 @@ import RegisterView from '../views/Register';
 import LoginIcon from '@material-ui/icons/PeopleAltOutlined';
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import Profile from '../views/Profile';
+import Admin from '../views/Admin/Admin';
 
 
 const RoutesType = {
@@ -21,7 +22,8 @@ export const RouteNames = {
     Profile: 'Profile',
     ChangePassword: 'ChangePassword',
     ChangeProfile: 'ChangeProfile',
-    Orders: 'Orders'
+    Orders: 'Orders',
+    Admin: 'Admin'
 }
 
 export const AllRouteNames = {
@@ -36,7 +38,8 @@ export const RoutePaths = {
     Profile: ['', RouteNames.Profile].join('/'),
     ChangePassword: ['', RouteNames.ChangePassword].join('/'),
     ChangeProfile: ['', RouteNames.ChangeProfile].join('/'),
-    Orders: ['', RouteNames.Orders].join('/')
+    Orders: ['', RouteNames.Orders].join('/'),
+    Admin: ['', RouteNames.Admin].join('/')
 }
 
 // route
@@ -96,12 +99,21 @@ export const RoutesApp = {
         path: RoutePaths.ChangeProfile,
         component: Profile,
         icon: LoginIcon
-    },Orders: {
+    },
+    Orders: {
         exact: true,
         id: RouteNames.Orders,
         label: "Orders",
         path: RoutePaths.Orders,
         component: Profile,
+        icon: LoginIcon
+    },
+    Admin: {
+        exact: true,
+        id: RouteNames.Admin,
+        label: "Admin",
+        path: RoutePaths.Admin,
+        component: Admin,
         icon: LoginIcon
     }
 }
@@ -133,6 +145,16 @@ export const routeDrawer = {
         label: "Profile",
         path: RoutePaths.Profile,
         component: Profile,
+        icon: LoginIcon,
+        showWhenNotLogin: false,
+        showWhenLogin: true
+    },
+    Admin: {
+        exact: true,
+        id: RouteNames.Admin,
+        label: "Admin",
+        path: RoutePaths.Admin,
+        component: Admin,
         icon: LoginIcon,
         showWhenNotLogin: false,
         showWhenLogin: true

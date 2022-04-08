@@ -22,10 +22,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", usersRouter);
-app.use("/product", productRouter);
-app.use("/brand", brandRouter);
-app.use("/ticket", ticketRouter);
-app.use("/order", orderRouter);
+app.use("/products", productRouter);
+app.use("/brands", brandRouter);
+app.use("/tickets", ticketRouter);
+app.use("/orders", orderRouter);
 app.use("/order-detail", orderDetailRouter);
 
 

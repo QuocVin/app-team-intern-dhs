@@ -29,11 +29,10 @@ async function getAll(params) {
 
 async function getById(params) {
   const rows = await db.query(
-    `SELECT id, name, descripstion, price, image_path, status, quantity_stored, id_brand
+    `SELECT *
     FROM product 
     WHERE id = ${params.id}`
   );
-
   return {
     status: 200,
     data: rows[0],
