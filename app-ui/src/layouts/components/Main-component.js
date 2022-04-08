@@ -3,6 +3,7 @@ import React from "react";
 import clsx from "clsx";
 import FooterComponent from "./Footer-component";
 
+
 export default function ({ classes, children, open, setRef }) {
   return (
     <main
@@ -12,7 +13,9 @@ export default function ({ classes, children, open, setRef }) {
       ref={target => setRef(target)}
     >
       <Toolbar />
-      {children}
+      <div style={{minHeight: '70vh'}}>
+        {children}
+      </div>
 
       <FooterComponent classes={classes} />
     </main>
