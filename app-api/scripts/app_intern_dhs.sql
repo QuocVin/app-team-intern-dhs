@@ -48,13 +48,13 @@ PRIMARY KEY (`id`));
   INSERT INTO `app_intern_dhs`.`brands` (`name`) VALUES ('Nokia');
 
 
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 1','mo ta ve dien thoai 1','10000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '30', '1');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 2','mo ta ve dien thoai 2','11000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '33', '2');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 3','mo ta ve dien thoai 3','12000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '54', '3');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 4','mo ta ve dien thoai 4','13000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '32', '3');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 5','mo ta ve dien thoai 5','14000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '12', '3');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 6','mo ta ve dien thoai 6','15000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '6', '2');
-  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 7','mo ta ve dien thoai 7','16000000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '17', '3');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 1','mo ta ve dien thoai 1','1000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '30', '1');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 2','mo ta ve dien thoai 2','2000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '33', '2');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 3','mo ta ve dien thoai 3','3000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '54', '3');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 4','mo ta ve dien thoai 4','4000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '32', '3');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 5','mo ta ve dien thoai 5','5000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '12', '3');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 6','mo ta ve dien thoai 6','6000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '6', '2');
+  INSERT INTO `app_intern_dhs`.`product` (`name`, `descripstion`, `price`, `image_path`, `quantity_stored`, `id_brand`) VALUES ('dien thoai 7','mo ta ve dien thoai 7','7000', 'https://cdn.tgdd.vn/Products/Images/42/153856/iphone-xi-do-600x600.jpg', '17', '3');
 
 
   -- CREATE TABLE `app_intern_dhs`.`brand_product` (
@@ -126,34 +126,33 @@ PRIMARY KEY (`id`));
     REFERENCES `app_intern_dhs`.`users` (`id`),
   PRIMARY KEY (`id`));
 
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('5000000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('69000', '2022-04-08', '5');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('52000', '2022-04-07', '4');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('77000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('12000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('40000', '2022-04-09', '4');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('67000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('85000', '2022-04-07', '6');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('59000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('120000', '2022-04-08', '6');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('44000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('26000', '2022-04-08', '6');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('71000', '2022-04-09', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('59000', '2022-04-09', '5');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-09', '4');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-08', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-08', '4');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-07', '3');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-09', '4');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-07', '5');
-  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('28000', '2022-04-09', '6');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('14000', '2022-01-07', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('11000', '2022-01-08', '5');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('10000', '2022-02-07', '4');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('11000', '2022-02-07', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('5000', '2022-02-07', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('5000', '2022-02-09', '4');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('17000', '2022-02-07', '3');  
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('10000', '2022-02-07', '6');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('7000', '2022-03-07', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('5000', '2022-03-08', '6');  
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('6000', '2022-03-07', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('6000', '2022-03-08', '6');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('5000', '2022-04-09', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('4000', '2022-04-09', '5'); 
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('7000', '2022-04-07', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('9000', '2022-04-09', '4');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('5000', '2022-04-08', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('7000', '2022-04-07', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('6000', '2022-04-08', '4');  
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('4000', '2022-04-07', '3');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('3000', '2022-04-09', '4');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('2000', '2022-04-07', '5');
+  INSERT INTO `app_intern_dhs`.`order_db` (`total_price`, `created_date`, `id_user`) VALUES ('1000', '2022-04-09', '6');
 
 
   CREATE TABLE `app_intern_dhs`.`order_detail` (
     `quantity` 	        INT DEFAULT 0 NULL,
-    `price_products`      DOUBLE DEFAULT 0 NULL,
 
     `id_order`            INT NOT NULL,
     `id_product`          INT NULL,
@@ -167,6 +166,41 @@ PRIMARY KEY (`id`));
     REFERENCES `app_intern_dhs`.`product` (`id`)
   );
 
-  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `price_products`, `id_order`, `id_product`) VALUES ('1', '10000000', '1', '1');
-  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `price_products`, `id_order`, `id_product`) VALUES ('2', '28000000', '1', '5');
-  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `price_products`, `id_order`, `id_product`) VALUES ('1', '12000000', '1', '3');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '1', '1');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('2', '1', '5');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '1', '3');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '2', '1');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('2', '2', '5');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '3', '4');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '3', '6');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('2', '4', '2');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '4', '7');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '5', '5');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '6', '1');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '6', '4');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('3', '7', '5');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '7', '2');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '8', '1');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '8', '3');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '8', '6');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '9', '7');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '10', '3');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('2', '10', '1');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '11', '1');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '11', '2');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '11', '3');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '12', '4');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '12', '2');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '13', '5');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('2', '14', '2');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '15', '7');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '16', '3');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '16', '6');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '17', '2');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '17', '3');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '18', '7');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '19', '6');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '20', '4');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '21', '3');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '22', '2');
+  INSERT INTO `app_intern_dhs`.`order_detail` (`quantity`, `id_order`, `id_product`) VALUES ('1', '23', '1');
