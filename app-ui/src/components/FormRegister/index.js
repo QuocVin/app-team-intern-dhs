@@ -32,6 +32,7 @@ const FormRegister = ({callback}) => {
     })
 
     const [isRegisting, setIsRegisting] = useState(false)
+    const [registerError, setRegisterError] = useState(undefined)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -55,15 +56,21 @@ const FormRegister = ({callback}) => {
       if(Object.keys(errors).length === 0 && isConfirm){
           setIsRegisting(true)
           doRegister(user).then((res)=>{
-              callback()
-          }).catch(error => {console.log(error);})
+              const {data, status, mess} = res.data
+              if(status && status === 201){
+                  callback()
+              }else{
+                  setIsRegisting(false)
+                  setRegisterError(mess)
+              }
+          }).catch(error => { setIsRegisting(false)})
       }
     }, [errors])
     
 
   return (
     <form className={classes.form} onSubmit={handleSubmit} noValidate>
-
+        {registerError && <span className={classes.errorMessage}>{registerError}</span>}
         <TextField  label="Username" required error={errors.username ? true: false } variant='outlined' name='username' value={user.username} onChange={handleChange} className={classes.input}/>
         {errors.username && <span className={classes.errorMessage}>{errors.username}</span>}
 

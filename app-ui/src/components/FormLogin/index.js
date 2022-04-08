@@ -28,6 +28,7 @@ export default function Login() {
     })
 
     const [isLoging, setIsLoging] = useState(false)
+    const [loginError, setLoginError] = useState(undefined)
 
 
     const dispatch = useDispatch()
@@ -62,18 +63,19 @@ export default function Login() {
                     history.push('/')
                 }
                 else{
-                    alert(mess)
+                    setLoginError(mess)
                     setIsLoging(false)
                 }
             })
-            .catch((err)=> console.log(err))
+            .catch((err)=> setIsLoging(false))
         }
     },[errors])
 
     const classes = useStyles()
     return (
-         isLogin ? <h1>Loging...</h1>
+         isLoging ? <h1>Login processing...</h1>
             :<div>
+                {loginError && <span className={classes.errorMessage}>{loginError}</span>}
                 {isLogin && <h2 onClick={()=>dispatch(logout())}>da login</h2>}
                 <form className={classes.form} onSubmit={handleSubmit}>
                     <TextField  label="Username" error={errors.username ? true: false } variant='outlined' name='username' value={user.username} onChange={handleChange} className={classes.input}/>
