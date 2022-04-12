@@ -25,7 +25,7 @@ router.post("/create", async function (req, res, next) {
 /* PUT */
 router.put('/update/:id', async function(req, res, next) {
   try {
-    res.json(await userServ.updateUser(req.params.id, req.body));
+    res.json(await userServ.updateUser(req.body));
   } catch (err) {
     console.error(`Error while updating users`, err.message);
     next(err);
@@ -55,6 +55,15 @@ router.post("/authentication", async function (req, res, next) {
 router.get('/user-detail/:id', async function(req, res, next) {
   try {
     res.json(await userServ.getUserById(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting user`, err.message);
+    next(err);
+  }
+});
+
+router.post('/user-detail/change-password', async function(req, res, next) {
+  try {
+    res.json(await userServ.changePass(req.body));
   } catch (err) {
     console.error(`Error while getting user`, err.message);
     next(err);
