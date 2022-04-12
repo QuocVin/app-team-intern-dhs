@@ -13,8 +13,7 @@ export default function ({ children, setToken, ...rest }) {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [mainRef, setMainRef] = useState();
   const trigger = useScrollTrigger({ target: mainRef });
-
-  const isLogin = useSelector((state)=> state.loginState.isLogin)
+  const isLogin = useSelector((state)=> state.loginState.isLogin);
 
   useEffect(() => {
     if (trigger) {

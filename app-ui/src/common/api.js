@@ -9,6 +9,7 @@ export const endpoints = {
     // 'user-search': '/api/users/searchName',
 
     'product': '/product',
+    'pay': '/order/create'
 }
 
 export const API = axios.create({

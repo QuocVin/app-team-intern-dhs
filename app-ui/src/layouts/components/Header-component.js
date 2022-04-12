@@ -26,7 +26,7 @@ import LOGO from "../../assets/images/dhs_logo.png";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const MENU = [
   { id: "san_pham", label: "Sản phẩm" },
   { id: "dich_vu", label: "Dịch vụ" },
@@ -47,7 +47,7 @@ const StyledBadge = withStyles((theme) => ({
 
 export default function ({ classes, open, setOpen, mainRef }) {
   const trigger = useScrollTrigger({ target: mainRef });
-
+  const {cartTotalQuantity} = useSelector((state)=> state.cartState)
   const [openSet, setOpenSet] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -126,7 +126,7 @@ export default function ({ classes, open, setOpen, mainRef }) {
         <Tooltip title="Cart">
           <Link to="/cart">
             <IconButton aria-label="cart">
-              <StyledBadge badgeContent={1} color="secondary">
+              <StyledBadge badgeContent={cartTotalQuantity} color="secondary">
                 <ShoppingCartIcon />
               </StyledBadge>
             </IconButton>
