@@ -9,6 +9,10 @@ export const endpoints = {
     // 'user-search': '/api/users/searchName',
 
     'product': '/product',
+
+    'table-year-total': '/order/get-year-total',
+    'chart-month-total-by-brand': (month) => `/order/get-month-total-by-brand?month=${month}`,
+    'chart-year': `/order/get-chart-year`,
 }
 
 export const API = axios.create({
