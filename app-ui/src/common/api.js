@@ -10,9 +10,9 @@ export const endpoints = {
 
     'product': '/product',
 
-    'table-year-total': '/order/get-year-total',
-    'chart-month-total-by-brand': (month) => `/order/get-month-total-by-brand?month=${month}`,
-    'chart-year': `/order/get-chart-year`,
+    'table-year-total': (year) => `/order/get-year-total?year=${year}`,
+    'chart-month-total-by-brand': (month, year) => `/order/get-month-total-by-brand?month=${month}&year=${year}`,
+    'chart-year': (year) => `/order/get-chart-year?year=${year}`,
 }
 
 export const API = axios.create({

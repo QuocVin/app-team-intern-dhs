@@ -175,7 +175,7 @@ async function getTotalMonthGroupBrand(params) {
     INNER JOIN brands b ON b.id = p.id_brand
     INNER JOIN order_detail od ON od.id_product = p.id
     INNER JOIN order_db o ON o.id = od.id_order
-    WHERE MONTH(o.created_date) = ${params.month}
+    WHERE MONTH(o.created_date) = ${params.month} AND YEAR(o.created_date) = ${params.year}
     GROUP BY b.name
     ORDER BY b.name ASC`
   );
@@ -186,13 +186,14 @@ async function getTotalMonthGroupBrand(params) {
   };
 }
 
-// thống kê thành bảng theo nhóm brand
+// thống kê thành bảng theo hóa đơn
 async function getYearTotal(params) {
   const result = await db.query(
-    `SELECT count(id) as sl, sum(total_price) as total, MONTH(od.created_date) as months
+    `SELECT count(id) as sl, sum(total_price) as total, MONTH(od.created_date) as month, YEAR(od.created_date) as year
     FROM order_db od
-    GROUP BY months
-    ORDER BY months ASC`
+    WHERE YEAR(od.created_date) = ${params.year}
+    GROUP BY month
+    ORDER BY month ASC`
   );
 
   return {
@@ -204,10 +205,11 @@ async function getYearTotal(params) {
 // thống kê tổng danh trong năm theo từng tháng
 async function getChartYear(params) {
   const result = await db.query(
-    `SELECT sum(total_price) as total, MONTH(od.created_date) as months
+    `SELECT sum(total_price) as total, MONTH(od.created_date) as month
     FROM order_db od
-    GROUP BY months
-    ORDER BY months ASC`
+    WHERE YEAR(od.created_date) = ${params.year}
+    GROUP BY month
+    ORDER BY month ASC`
   );
 
   return {
