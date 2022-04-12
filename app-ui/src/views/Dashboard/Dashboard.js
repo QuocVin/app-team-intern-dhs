@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
 import {
     Typography,
     Container,
@@ -10,6 +11,7 @@ import { useStyles } from "./Dashboard-styles";
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { endpoints, API } from '../../common/api';
 import AppTable from '../../components/Table';
+import { outputPdf } from '../../components/ExportPdf';
 import {
     createData,
     converData,
@@ -36,15 +38,13 @@ export const chartOrderColumns = [
     },
 ];
 
-
-
 export default function Dashboard() {
     const classes = useStyles();
     const [loading, setLoading] = useState(true);
     const [chartOrderByBrand, setChartOrderByBrand] = useState({});
     const [chartYear, setChartYear] = useState({});
     const [tableYear, setTableYear] = useState([]);
-    // const [monthForChart, setMonthForChart] = useState();
+    const [hidden, setHidden] = useState(false);
 
     // tool
     const [input, setInput] = useState({
@@ -155,103 +155,124 @@ export default function Dashboard() {
         fetchChartYear(year)
     }
 
+    const handleExportPDF = () => {
+        setHidden(true)
+        outputPdf()
+        setTimeout(() => {
+            setHidden(false)
+        }, 2000);
+    }
+
     return (
-        <Container maxWidth='lg'>
+        <Container maxWidth='lg' >
             <Typography className={classes.title} variant="h3" >Báo cáo thống kê</Typography>
 
-            <Box
-                flexDirection='row'
-                display='flex'
-                marginBottom={5}
-            >
+            <Box id='content_pdf'>
                 <Box
-                    flexDirection='columns'
+                    flexDirection='row'
                     display='flex'
-                    marginRight={10}
+                    marginBottom={5}
                 >
-                    {loading ? <p>loading. . .</p> : (
-                        <Box className={classes.chartYear}>
-                            <Bar
-                                data={componentYearOrder}
-                                options={{
-                                    plugins: {
-                                        legend: {
-                                            display: true,
-                                            position: 'top',
+                    <Box
+                        flexDirection='columns'
+                        display='flex'
+                        marginRight={10}
+                    >
+                        {loading ? <p>loading. . .</p> : (
+                            <Box className={classes.chartYear}>
+                                <Bar
+                                    data={componentYearOrder}
+                                    options={{
+                                        plugins: {
+                                            legend: {
+                                                display: true,
+                                                position: 'top',
+                                            },
+                                            title: {
+                                                display: true,
+                                                text: 'Thống kê số lượng đơn hàng trong năm',
+                                            },
                                         },
-                                        title: {
-                                            display: true,
-                                            text: 'Thống kê số lượng đơn hàng trong năm',
-                                        },
-                                    },
-                                }} />
+                                    }} />
+                            </Box>
+                        )}
+                    </Box>
+                    <Box
+                        flexDirection='columns'
+                        display='flex'
+                        className={clsx(classes.tool, {
+                            [classes.toolHidden]: hidden,
+                        })}
+                    >
+                        <Box>
+                            <Typography className={classes.titleTool} variant="h5">Bảng điều khiển</Typography>
+                            <TextField
+                                id="outlined-basic" variant="outlined"
+                                value={input?.year} label="Năm thống kê"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                type='number'
+                                className={classes.inputSearch}
+                                onChange={handleInput}
+                            />
+                            <Button
+                                onClick={() => handleReport(input)}
+                                color='primary'
+                                variant='contained'
+                                fullWidth
+                                className={classes.btn}
+                            >Thống kê</Button>
+                            <Button
+                                onClick={() => handleExportPDF()}
+                                color='primary'
+                                variant='outlined'
+                                fullWidth
+                                className={classes.btn}
+                            >Export</Button>
                         </Box>
-                    )}
-                </Box>
-                <Box
-                    flexDirection='columns'
-                    display='flex'
-                    className={classes.tool}
-                >
-                    <Box>
-                        <Typography className={classes.titleTool} variant="h5">Bảng điều khiển</Typography>
-                        <TextField
-                            id="outlined-basic" variant="outlined"
-                            value={input?.year} label="Năm thống kê"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            className={classes.inputSearch}
-                            onChange={handleInput}
-                        />
-                        <Button
-                            onClick={() => handleReport(input)}
-                            color='primary'
-                            variant='contained'
-                            fullWidth
-                        >Thống kê</Button>
                     </Box>
                 </Box>
-            </Box>
 
-            <Box
-                flexDirection='row'
-                display='flex'
-            >
                 <Box
-                    flexDirection='columns'
-                    display='flex'
-                    marginRight={10}
-                >
-                    {loading ? <p>Loading ...</p> :
-                        <Box className={classes.table}>
-                            <Typography className={classes.title} variant="h4" >Danh thu trong năm</Typography>
-                            <AppTable columns={chartOrderColumns} data={tableYear} handleChoose={handleChoose} />
-                        </Box>
-                    }
-                </Box>
-                <Box
-                    flexDirection='columns'
+                    flexDirection='row'
                     display='flex'
                 >
-                    {loading ? <p>loading. . .</p> : (
-                        <Box className={classes.chartMonth}>
-                            <Doughnut
-                                data={componentMonthPrice}
-                                options={{
-                                    plugins: {
-                                        legend: {
-                                            display: true,
-                                            position: 'right',
+                    <Box
+                        flexDirection='columns'
+                        display='flex'
+                        marginRight={10}
+                    >
+                        {loading ? <p>Loading ...</p> :
+                            <Box className={classes.table}>
+                                <Typography className={classes.title} variant="h4" >Danh thu trong năm</Typography>
+                                <AppTable columns={chartOrderColumns} data={tableYear} handleChoose={handleChoose} />
+                            </Box>
+                        }
+                    </Box>
+                    <Box
+                        flexDirection='columns'
+                        display='flex'
+                    >
+                        {loading ? <p>loading. . .</p> : (
+                            <Box className={classes.chartMonth}>
+                                <Doughnut
+                                    data={componentMonthPrice}
+                                    options={{
+                                        plugins: {
+                                            legend: {
+                                                display: true,
+                                                position: 'right',
+                                            },
+                                            title: {
+                                                display: true,
+                                                text: `Danh thu trong tháng ${input.month} theo thương hiệu`,
+                                            },
                                         },
-                                        title: {
-                                            display: true,
-                                            text: `Danh thu trong tháng ${input.month} theo thương hiệu`,
-                                        },
-                                    },
-                                }} />
-                        </Box>
-                    )}
+                                    }} />
+                            </Box>
+                        )}
+                    </Box>
                 </Box>
             </Box>
         </Container>
