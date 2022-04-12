@@ -5,6 +5,6 @@ const config = {
     password: "khang123",
     database: "app_intern_dhs",
   },
-  listPerPage: 10,
+  listPerPage: 6,
 };
 module.exports = config;

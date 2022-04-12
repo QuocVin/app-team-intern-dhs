@@ -6,6 +6,7 @@ import ProductDetailView from '../views/ProductDetail'
 import CartView from '../views/Cart'
 import LoginIcon from '@material-ui/icons/PeopleAltOutlined';
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import Profile from '../views/Profile';
 
 
 const RoutesType = {
@@ -20,6 +21,10 @@ export const RouteNames = {
     Register: 'Register',
     ProductDetail: 'ProductDetail',
     Cart: 'Cart',
+    Profile: 'Profile',
+    ChangePassword: 'ChangePassword',
+    ChangeProfile: 'ChangeProfile',
+    Orders: 'Orders'
 }
 
 export const AllRouteNames = {
@@ -33,6 +38,10 @@ export const RoutePaths = {
     Home: ['', RouteNames.Home].join('/'),
     ProductDetail: ['', RouteNames.ProductDetail, RoutesType.Detail].join('/'),
     Cart: ['', RouteNames.Cart, RoutesType.Cart].join('/'),
+    Profile: ['', RouteNames.Profile].join('/'),
+    ChangePassword: ['', RouteNames.ChangePassword].join('/'),
+    ChangeProfile: ['', RouteNames.ChangeProfile].join('/'),
+    Orders: ['', RouteNames.Orders].join('/')
 }
 
 // route
@@ -86,4 +95,68 @@ export const RoutesApp = {
         icon: LoginIcon
     },
 
+    Profile: {
+        exact: true,
+        id: RouteNames.Profile,
+        label: "Profile",
+        path: RoutePaths.Profile,
+        component: Profile,
+        icon: LoginIcon
+    },
+    ChangePassword: {
+        exact: true,
+        id: RouteNames.ChangePassword,
+        label: "Change Password",
+        path: RoutePaths.ChangePassword,
+        component: Profile,
+        icon: LoginIcon
+    },
+    ChangeProfile: {
+        exact: true,
+        id: RouteNames.ChangeProfile,
+        label: "Change Profile",
+        path: RoutePaths.ChangeProfile,
+        component: Profile,
+        icon: LoginIcon
+    },Orders: {
+        exact: true,
+        id: RouteNames.Orders,
+        label: "Orders",
+        path: RoutePaths.Orders,
+        component: Profile,
+        icon: LoginIcon
+    }
+}
+
+export const routeDrawer = {
+    Home: {
+        exact: true,
+        id: RouteNames.Home,
+        label: "Home",
+        path: RoutePaths.Home,
+        component: HomeView,
+        icon: LoginIcon,
+        showWhenNotLogin: true,
+        showWhenLogin: true
+    },
+    Login: {
+        exact: true,
+        id: RouteNames.Login,
+        label: "Login",
+        path: RoutePaths.Login,
+        component: LoginView,
+        icon: LoginIcon,
+        showWhenNotLogin: true,
+        showWhenLogin: false
+    },
+    Profile: {
+        exact: true,
+        id: RouteNames.Profile,
+        label: "Profile",
+        path: RoutePaths.Profile,
+        component: Profile,
+        icon: LoginIcon,
+        showWhenNotLogin: false,
+        showWhenLogin: true
+    },
 }

@@ -9,7 +9,6 @@ export default function Home() {
     (async () => {
       try {
         const res = await apiAxios.get(`/product`);
-        console.log(res.data)
         setProducts(res.data.data);
       } catch (err) {
         console.log(err);

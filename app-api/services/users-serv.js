@@ -1,4 +1,4 @@
-const db = require("./db");
+const db = require("./db"); 
 const helper = require("../helper");
 const config = require("../config");
 const bcrypt = require("bcrypt");
@@ -7,19 +7,28 @@ const jwtVariable = require("../variables/jwt");
 const { SALT_ROUNDS } = require("../variables/auth");
 const authMethod = require("./token-serv");
 
-async function getAll(page = 1) {
-  const offset = helper.getOffset(page, config.listPerPage);
+async function getAll(params) {
+  const offset = helper.getOffset(params?.page || 1, config.listPerPage);
   const rows = await db.query(
     `SELECT id, username, name, date_ob, phone, mail, created_date, role_name
     FROM users 
+    WHERE name like '%${params?.name || ''}%' AND role_name <> 'ADMIN' 
+    ORDER BY role_name
     LIMIT ${offset},${config.listPerPage}`
+  );
+
+  const total = await db.query(
+    `SELECT count(id) as sl
+    FROM users 
+    WHERE name like '%${params?.name || ''}%' AND role_name <> 'ADMIN'`
   );
 
   return {
     status: 200,
     data: rows,
     length: rows.length,
-    page: page,
+    page: params?.page || 1,
+    total: total[0].sl
   };
 }
 
@@ -132,10 +141,33 @@ async function authentication(user) {
   }
 }
 
+async function getUserById(id) {
+  const result = await db.query(
+    `SELECT *
+      FROM users
+      WHERE id=${id}`
+  );
+
+  if (result.length) {
+    delete result[0].password
+    return {
+      status: 200,
+      mess: "lấy thông tin người dùng thành công",
+      data: result,
+    };
+  } else {
+    return {
+      status: 400,
+      mess: "Không tìm thấy người dùng",
+    };
+  }
+}
+
 module.exports = {
   getAll,
   createUser,
   updateUser,
   deleteUser,
   authentication,
+  getUserById,
 };

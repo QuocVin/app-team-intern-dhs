@@ -7,6 +7,7 @@ const productRouter = require("./routes/product-route");
 const brandRouter = require("./routes/brands-route");
 const ticketRouter = require("./routes/ticket-route");
 const orderRouter = require("./routes/order-route");
+const orderDetailRouter = require("./routes/order-detail-route");
 
 app.use(express.json());
 app.use(
@@ -25,6 +26,7 @@ app.use("/product", productRouter);
 app.use("/brand", brandRouter);
 app.use("/ticket", ticketRouter);
 app.use("/order", orderRouter);
+app.use("/order-detail", orderDetailRouter);
 
 
 /* Error handler middleware */
