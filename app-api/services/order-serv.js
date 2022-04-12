@@ -166,6 +166,58 @@ async function getOrderDetail(params, page = 1) {
   };
 }
 
+
+//  getYearTotal hanlder chon row bat ki -> total month
+async function getTotalMonthGroupBrand(params) {
+  const rows = await db.query(
+    `SELECT sum((p.price * od.quantity)) as total, b.name
+    FROM product p
+    INNER JOIN brands b ON b.id = p.id_brand
+    INNER JOIN order_detail od ON od.id_product = p.id
+    INNER JOIN order_db o ON o.id = od.id_order
+    WHERE MONTH(o.created_date) = ${params.month} AND YEAR(o.created_date) = ${params.year}
+    GROUP BY b.name
+    ORDER BY b.name ASC`
+  );
+
+  return {
+    status: 200,
+    data: rows,
+  };
+}
+
+// thống kê thành bảng theo hóa đơn
+async function getYearTotal(params) {
+  const result = await db.query(
+    `SELECT count(id) as sl, sum(total_price) as total, MONTH(od.created_date) as month, YEAR(od.created_date) as year
+    FROM order_db od
+    WHERE YEAR(od.created_date) = ${params.year}
+    GROUP BY month
+    ORDER BY month ASC`
+  );
+
+  return {
+    status: 200,
+    data: result,
+  };
+}
+
+// thống kê tổng danh trong năm theo từng tháng
+async function getChartYear(params) {
+  const result = await db.query(
+    `SELECT sum(total_price) as total, MONTH(od.created_date) as month
+    FROM order_db od
+    WHERE YEAR(od.created_date) = ${params.year}
+    GROUP BY month
+    ORDER BY month ASC`
+  );
+
+  return {
+    status: 200,
+    data: result,
+  };
+}
+
 module.exports = {
   getAll,
   create,
@@ -173,4 +225,7 @@ module.exports = {
   remove,
   getOrderByUser,
   getOrderDetail,
+  getTotalMonthGroupBrand,
+  getYearTotal,
+  getChartYear,
 };

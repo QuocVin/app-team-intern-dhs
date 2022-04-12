@@ -180,7 +180,7 @@ async function changePass(user) {
     const result2 = await db.query(
       `UPDATE users 
       SET password="${newPass}"
-      WHERE id=${user.id}`
+      WHERE username='${user.username}'`
     );
 
     // xử lý token
