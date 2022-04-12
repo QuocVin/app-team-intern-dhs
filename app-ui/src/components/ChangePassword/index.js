@@ -1,18 +1,30 @@
-import { Box, Button, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Snackbar, TextField, Typography } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { API } from '../../common/api'
 
 import ProfileTitle from '../ProfileTitle'
 import { useStyles } from './style'
 import { validationInfo } from './validationInfo'
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function ChangePassword() {
 
     const userData = useSelector(state => state.loginState.user)
     const [isConfirm, setIsConfirm] = useState(false)
     const [errors, setErrors] = useState({})
+    const [showSnackBar, setShowSnackBar] = useState({
+        open: false,
+        severity: 'success',
+        vertical: 'bottom',
+        horizontal: 'right',
+        text: '',
+    })
     const [passwordData, setPasswordData] = useState({
         password : '',
         newPassword: '',
@@ -32,7 +44,7 @@ function ChangePassword() {
     const checkUser = (user)=>{
         let flag = false
 
-        axios.post('',user).then(res=>{
+        axios.post(API,user).then(res=>{
             const {status} = res.data
             if(status && status === 200){
                 flag = true
@@ -41,18 +53,38 @@ function ChangePassword() {
 
         return flag
     }
-    const changePassword = ()=>{
-        
+    const changePassword = ({username, password, newPassword})=>{
+        return API.post('', {
+            username: username, 
+            password: password,
+            newPassword: newPassword,
+        })
     }
-
+    const showErrorSnackBar = (text) =>{
+        setShowSnackBar({...showSnackBar, open: true, severity: 'error', text})
+    }
+    const showSuccessSnackBar = (text) =>{
+        setShowSnackBar({...showSnackBar, open: true, severity: 'success', text})
+    }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setShowSnackBar({...showSnackBar, open: false})
+      };
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isConfirm)
         {
-            if(checkUser()){
-
-            }else{
-                setErrors({...errors, password: 'Wrong password'})
-            }
+            changePassword(passwordData)
+            .then(res=>{
+                const {data, status, mess} = res.data
+                if(status && status === 201){
+                    showSuccessSnackBar('Success: Your password changed')
+                }else{
+                    showErrorSnackBar(`Failed: ${mess}`)
+                }
+            }).catch(err => console.log(err))
         }
     }, [errors])
     
@@ -77,6 +109,15 @@ function ChangePassword() {
                 </Button>
             </form>
         </Box>
+        <Snackbar 
+        open={showSnackBar.open} 
+        autoHideDuration={3000} 
+        onClose={handleClose} 
+        anchorOrigin={{vertical: showSnackBar.vertical, horizontal: showSnackBar.horizontal}}>
+            <Alert onClose={handleClose} severity={showSnackBar.severity}>
+                {showSnackBar.text}
+            </Alert>
+        </Snackbar>
     </div>
   )
 }

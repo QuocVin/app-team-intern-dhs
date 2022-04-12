@@ -6,7 +6,11 @@ import RegisterView from '../views/Register';
 import LoginIcon from '@material-ui/icons/PeopleAltOutlined';
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import Profile from '../views/Profile';
+import HomeIcon from '@material-ui/icons/Home';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import InfoIcon from '@material-ui/icons/Info';
 
 
 const RoutesType = {
@@ -80,7 +84,7 @@ export const RoutesApp = {
         label: "Home",
         path: RoutePaths.Home,
         component: HomeView,
-        icon: LoginIcon,
+        icon: HomeIcon,
         needLogin: false,
         isLoginRoute: false,
     },
@@ -90,7 +94,7 @@ export const RoutesApp = {
         label: "Profile",
         path: RoutePaths.Profile,
         component: Profile,
-        icon: LoginIcon,
+        icon: AccountCircleIcon,
         needLogin: true,
         isLoginRoute: false,
     },
@@ -100,7 +104,7 @@ export const RoutesApp = {
         label: "Change Password",
         path: RoutePaths.ChangePassword,
         component: Profile,
-        icon: LoginIcon,
+        icon: VpnKeyIcon,
         needLogin: true,
         isLoginRoute: false,
     },
@@ -110,7 +114,7 @@ export const RoutesApp = {
         label: "Change Profile",
         path: RoutePaths.ChangeProfile,
         component: Profile,
-        icon: LoginIcon,
+        icon: InfoIcon,
         needLogin: true,
         isLoginRoute: false,
     },Orders: {

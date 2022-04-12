@@ -12,6 +12,7 @@ export const endpoints = {
     'ordersByUser': '/order/get-by-user/',
     'orderDetail': '/order/order-detail/',
     'updateUser':'/users/update/',
+    'changePassword': '',
 
 }
 

@@ -1,8 +1,6 @@
-import {  Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@material-ui/core'
-import axios from 'axios'
+import {  LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import OrderItem from './OrderItem'
 import {useStyles} from './style'
 import { endpoints, API } from '../../common/api';
@@ -25,6 +23,7 @@ const Orders = () => {
     const [page, setPage] = useState(0)
     const [totalOrders, setTotalOrders] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(0)
+    const [isLoading, setIsLoading] = useState(true)
 
     const history = useHistory()
 
@@ -38,7 +37,7 @@ const Orders = () => {
     
       const handleChangeRowsPerPage = (event) => {
         // setPage(1);
-        console.log(123);
+        //console.log(123);
       };
 
     useEffect(() => {
@@ -49,11 +48,9 @@ const Orders = () => {
               setTotalOrders(total)
               setRowsPerPage(limit)
           }
-      }).catch(err=> console.log(err))
+          setIsLoading(false)
+      }).catch(err=> setIsLoading(false))
     }, [page])
-    
-    
-
 
   return (
     <Paper>
@@ -69,25 +66,31 @@ const Orders = () => {
                 </TableHead>
                 <TableBody>
                     {
-                        orders.map((item,i)=>
+                        isLoading ?<TableRow>
+                            <TableCell colSpan={4}><LinearProgress /></TableCell>
+                        </TableRow>
+                        : orders.map((item,i)=>
                             <OrderItem key={i} item={item} onClick={()=>handleOrderItemClick(item)}/>
                         )
                     }
                 </TableBody>
                 <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                        colSpan={3}
-                        count={totalOrders}
-                        rowsPerPage={rowsPerPage}
-                        rowsPerPageOptions={[]}
-                        page={page}
-                        
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                        ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
+                    {
+                        orders.length > 0 && 
+                            <TableRow>
+                                <TablePagination
+                                colSpan={3}
+                                count={totalOrders}
+                                rowsPerPage={rowsPerPage}
+                                rowsPerPageOptions={[]}
+                                page={page}
+                                
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationActions}
+                                />
+                            </TableRow>
+                    }
                 </TableFooter>
             </Table>
         </TableContainer>
