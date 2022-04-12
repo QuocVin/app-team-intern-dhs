@@ -2,8 +2,9 @@ import { Box, Button, Snackbar, TextField, Typography } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import cookies from 'react-cookies';
 import { useSelector } from 'react-redux'
-import { API } from '../../common/api'
+import { API, endpoints } from '../../common/api'
 
 import ProfileTitle from '../ProfileTitle'
 import { useStyles } from './style'
@@ -54,10 +55,14 @@ function ChangePassword() {
         return flag
     }
     const changePassword = ({username, password, newPassword})=>{
-        return API.post('', {
+        return API.post(endpoints.changePassword, {
             username: username, 
             password: password,
             newPassword: newPassword,
+        },{
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+              }
         })
     }
     const showErrorSnackBar = (text) =>{
@@ -76,13 +81,26 @@ function ChangePassword() {
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isConfirm)
         {
-            changePassword(passwordData)
+            const user = cookies.load('user')
+            changePassword({
+                username: user.username,
+                password: passwordData.password,
+                newPassword: passwordData.newPassword
+            })
             .then(res=>{
-                const {data, status, mess} = res.data
-                if(status && status === 201){
+                const {accessToken, status} = res.data
+                if(status && status === 200){
                     showSuccessSnackBar('Success: Your password changed')
+                    cookies.save('user', JSON.stringify({...user, password: passwordData.newPassword}))
+                    cookies.save('accessToken', accessToken)
+                    setPasswordData({
+                        password : '',
+                        newPassword: '',
+                        repassword: ''
+                    })
                 }else{
-                    showErrorSnackBar(`Failed: ${mess}`)
+                    showErrorSnackBar(`Failed: Current password is wrong`)
+                    setErrors({...errors, password: 'Current password is wrong'})
                 }
             }).catch(err => console.log(err))
         }
@@ -96,13 +114,13 @@ function ChangePassword() {
         <Box className={classes.container}>
             <form className={classes.form} onSubmit={handleSubmit} noValidate>
                 <TextField type={'password'} error={errors.password ? true: false} variant='outlined' label="Current password" name='password' value={passwordData.password} onChange={handleChange} className={classes.input}/>
-                {errors.password && <span className={classes.errorMessage}>{errors.username}</span>}
+                {errors.password && <span className={classes.errorMessage}>{errors.password}</span>}
 
                 <TextField type={'password'} error={errors.newPassword ? true: false} variant='outlined' label="New password" name='newPassword' value={passwordData.newPassword} onChange={handleChange} className={classes.input}/>
-                {errors.newPassword && <span className={classes.errorMessage}>{errors.name}</span>}
+                {errors.newPassword && <span className={classes.errorMessage}>{errors.newPassword}</span>}
 
                 <TextField type={'password'} error={errors.repassword ? true: false} variant='outlined' label="Repassword" name='repassword' value={passwordData.repassword} onChange={handleChange} className={classes.input}/>
-                {errors.repassword && <span className={classes.errorMessage}>{errors.phone}</span>}
+                {errors.repassword && <span className={classes.errorMessage}>{errors.repassword}</span>}
 
                 <Button variant="contained" type='Submit' color="primary" className={classes.button}>
                     Submit

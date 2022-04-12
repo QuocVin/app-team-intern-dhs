@@ -17,11 +17,18 @@ async function getAll(params) {
     LIMIT ${offset},${config.listPerPage}`
   );
 
+  const total = await db.query(
+    `SELECT count(id) as sl
+    FROM users 
+    WHERE name like '%${params?.name || ''}%' AND role_name <> 'ADMIN'`
+  );
+
   return {
     status: 200,
     data: rows,
     length: rows.length,
     page: params?.page || 1,
+    total: total[0].sl
   };
 }
 
@@ -134,10 +141,89 @@ async function authentication(user) {
   }
 }
 
+async function getUserById(id) {
+  const result = await db.query(
+    `SELECT *
+      FROM users
+      WHERE id=${id}`
+  );
+
+  if (result.length) {
+    delete result[0].password
+    return {
+      status: 200,
+      mess: "lấy thông tin người dùng thành công",
+      data: result,
+    };
+  } else {
+    return {
+      status: 400,
+      mess: "Không tìm thấy người dùng",
+    };
+  }
+}
+
+async function changePass(user) {
+  const result = await db.query(
+    `SELECT id, username, password
+    FROM users
+    WHERE username = '${user.username}'`
+  );
+
+  const isPasswordValid = bcrypt.compareSync(user.password, result[0].password);
+
+  if (result[0].password === user.password || isPasswordValid) {
+    delete result[0].password;
+
+    const hashPassword = bcrypt.hashSync(user.newPassword, SALT_ROUNDS);
+    const newPass = hashPassword;
+    const result2 = await db.query(
+      `UPDATE users 
+      SET password="${newPass}"
+      WHERE username='${user.username}'`
+    );
+
+    // xử lý token
+    const accessTokenLife =
+      process.env.ACCESS_TOKEN_LIFE || jwtVariable.accessTokenLife;
+    const accessTokenSecret =
+      process.env.ACCESS_TOKEN_SECRET || jwtVariable.accessTokenSecret;
+
+    const dataForAccessToken = {
+      username: result[0].username,
+    };
+    const accessToken = await authMethod.generateToken(
+      dataForAccessToken,
+      accessTokenSecret,
+      accessTokenLife
+    );
+
+    if (!accessToken) {
+      return {
+        status: 400,
+        mess: "Đổi mật khẩu không thành công, vui lòng thử lại."
+      };
+    }
+
+    return {
+      status: 200,
+      mess: "Đổi mật khẩu thành công.",
+      accessToken,
+    };
+  } else {
+    return {
+      status: 400,
+      mess: "Mật khẩu không chính xác"
+    };
+  }
+}
+
 module.exports = {
   getAll,
   createUser,
   updateUser,
   deleteUser,
   authentication,
+  getUserById,
+  changePass,
 };

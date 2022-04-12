@@ -14,7 +14,7 @@ const OrderItem = ({onClick, item}) => {
         <TableCell>{item.id}</TableCell>
         <TableCell>{dateFormat}</TableCell>
         <TableCell>{item.total_price} VNĐ</TableCell>
-        <TableCell><span>&gt;More info</span></TableCell>
+        <TableCell><span>More info</span></TableCell>
     </TableRow>
   )
 }

@@ -11,10 +11,10 @@ import ProfileNav from '../../components/ProfileNav'
 const Profile = () => {
   return (
     <Grid container>
-        <Grid item xs={12} md={3} >
+        <Grid item xs={12} sm={4} md={3}>
             <ProfileNav/>
         </Grid>
-        <Grid item xs={12} md={9} >
+        <Grid item xs={12} sm={8} md={9} >
             <Box width={'100%'}>
                 <Switch>
                     <Route exact path="/Profile">
