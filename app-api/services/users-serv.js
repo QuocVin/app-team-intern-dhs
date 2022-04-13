@@ -1,4 +1,4 @@
-const db = require("./db"); 
+const db = require("./db");
 const helper = require("../helper");
 const config = require("../config");
 const bcrypt = require("bcrypt");
@@ -163,6 +163,61 @@ async function getUserById(id) {
   }
 }
 
+async function changePass(user) {
+  const result = await db.query(
+    `SELECT id, username, password
+    FROM users
+    WHERE username = '${user.username}'`
+  );
+
+  const isPasswordValid = bcrypt.compareSync(user.password, result[0].password);
+
+  if (result[0].password === user.password || isPasswordValid) {
+    delete result[0].password;
+
+    const hashPassword = bcrypt.hashSync(user.newPassword, SALT_ROUNDS);
+    const newPass = hashPassword;
+    const result2 = await db.query(
+      `UPDATE users 
+      SET password="${newPass}"
+      WHERE username='${user.username}'`
+    );
+
+    // xử lý token
+    const accessTokenLife =
+      process.env.ACCESS_TOKEN_LIFE || jwtVariable.accessTokenLife;
+    const accessTokenSecret =
+      process.env.ACCESS_TOKEN_SECRET || jwtVariable.accessTokenSecret;
+
+    const dataForAccessToken = {
+      username: result[0].username,
+    };
+    const accessToken = await authMethod.generateToken(
+      dataForAccessToken,
+      accessTokenSecret,
+      accessTokenLife
+    );
+
+    if (!accessToken) {
+      return {
+        status: 400,
+        mess: "Đổi mật khẩu không thành công, vui lòng thử lại."
+      };
+    }
+
+    return {
+      status: 200,
+      mess: "Đổi mật khẩu thành công.",
+      accessToken,
+    };
+  } else {
+    return {
+      status: 400,
+      mess: "Mật khẩu không chính xác"
+    };
+  }
+}
+
 module.exports = {
   getAll,
   createUser,
@@ -170,4 +225,5 @@ module.exports = {
   deleteUser,
   authentication,
   getUserById,
+  changePass,
 };
