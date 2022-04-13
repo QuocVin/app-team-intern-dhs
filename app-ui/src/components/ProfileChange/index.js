@@ -1,16 +1,19 @@
-import { Box, Button, Divider, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Divider, IconButton, Snackbar, TextField, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useStyles } from './style'
 import validationInfo from './validationInfo'
+import ButtonProcess from '../ButtonProcess'
+import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios'
-import { userUpdate as userUpdateApi } from '../../common/api'
+
 import { useHistory } from 'react-router'
 import { updateUser } from '../../redux/login/loginSlice'
 import ProfileTitle from '../ProfileTitle'
+import { API, endpoints } from '../../common/api'
 
 const changeProfile = (user)=>{
-    return axios.put(userUpdateApi+ '/' + user.id, user,{
+    return API.put(endpoints['updateUser']+ user.id, user,{
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         }
@@ -20,13 +23,14 @@ const changeProfile = (user)=>{
 const ProfileChange = () => {
     const {user} = useSelector(state => state.loginState)
     const date_ob = new Date(user.date_ob)
-    const date_obFormat = `${date_ob.getFullYear()}-${date_ob.getMonth()}-${date_ob.getDate()}`
+    const date_obFormat = `${date_ob.getFullYear()}-${("0" + (date_ob.getMonth() + 1)).slice(-2)}-${("0" + date_ob.getDate()).slice(-2)}`
     const [userData, setUserData] = useState({...user, date_ob: date_obFormat})
     
     const classes = useStyles()
     const [errors, setErrors] = useState({})
     const [isConfirm, setIsConfirm] = useState(false)
     const [processing, setProcessing] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
     
     const history = useHistory()
     const dispatch = useDispatch()
@@ -48,16 +52,16 @@ const ProfileChange = () => {
                 const {data, status, mess} = res.data
                 if(status && status === 201){
                     dispatch(updateUser({user: data}))
-                    history.push('/Profile')
-
+                    setProcessing(false)
+                    setIsOpen(true)
                 }else{
                     setProcessing(false)
                 }
-            }).catch(err => setProcessing(false))
+            }).catch(err =>{setProcessing(false)})
         }
     }, [errors])
     
-  return ( processing ? <h1>Changing your proifle...</h1> : 
+  return (
     <div>
         <ProfileTitle text={"Change your profile"}/>
         <Box className={classes.container}>
@@ -77,9 +81,26 @@ const ProfileChange = () => {
             <TextField type={'date'} error={errors.date_ob ? true: false} variant='outlined' label="Birthday" name='date_ob' value={userData.date_ob} onChange={handleChange} className={classes.input}/>
             {errors.date_ob && <span className={classes.errorMessage}>{errors.date_ob}</span>}
 
-            <Button variant="contained" type='Submit' color="primary" className={classes.button}>
+            <ButtonProcess loading={processing} type='submit'>
                 Submit
-            </Button>
+            </ButtonProcess>
+            <Snackbar
+                anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+                }}
+                open={isOpen}
+                autoHideDuration={6000}
+                onClose={()=>setIsOpen(false)}
+                message="Success: Your profile changed"
+                action={
+                    <React.Fragment>
+                      <IconButton size="small" aria-label="close" color="inherit" onClick={()=>setIsOpen(false)}>
+                        <CloseIcon fontSize="small" />
+                      </IconButton>
+                    </React.Fragment>
+                  }
+            />
         </form>
         </Box>
           

@@ -8,10 +8,13 @@ import {
 import Layout from "./layouts";
 import { ROLE, RoutesApp, RoutePaths } from './common';
 import cookies from 'react-cookies';
+import { useSelector } from 'react-redux';
+import Login from './views/Login';
 
 function App() {
 
   function GuestLayout(props) {
+    const isLogin = useSelector(state => state.loginState.isLogin)
     return (
       <Layout {...props}>
         <Switch>
@@ -21,7 +24,24 @@ function App() {
                 key={idx}
                 path={route.path}
                 exact={route.exact}
-                render={(props) => <route.component {...props} />}
+                render={(props) => {
+                  if(route.needLogin && !isLogin){
+                   return <Redirect
+                    to={{
+                      pathname: "/login",
+                      state: { from: props.location }
+                    }}/> 
+                  }else if(route.isLoginRoute && isLogin){
+                    return <Redirect
+                    to={{
+                      pathname: "/",
+                      state: { from: props.location }
+                    }}/>
+                  }else{
+                  } 
+                  return <route.component {...props} />
+                }}
+                  
               />
             );
           })}

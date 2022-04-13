@@ -10,8 +10,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { routeDrawer } from "../../common/route"
-import { useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import cookies from 'react-cookies';
+import { logout } from "../../redux/login/loginSlice";
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 export default function ({ classes, open }) {
     const history = useHistory();
@@ -28,6 +30,8 @@ export default function ({ classes, open }) {
         }
     };
     const isLogin = useSelector(state => state.loginState.isLogin)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setChildDrawer(Object.values(routeDrawer))
@@ -48,15 +52,15 @@ export default function ({ classes, open }) {
             <div className={classes.drawerContainer}>
                 <List>
                     {childDrawer.map((route, idx) => {
-                        // if(isLogin){
-                        //     if(!route.showWhenLogin){
-                        //         return null
-                        //     }
-                        // }else{
-                        //     if(!route.showWhenNotLogin){
-                        //         return null
-                        //     }
-                        // }
+                        if(isLogin){
+                            if(!route.showWhenLogin){
+                                return null
+                            }
+                        }else{
+                            if(!route.showWhenNotLogin){
+                                return null
+                            }
+                        }
                         return (
                             <div key={route.id + idx}>
                                 <ListItem button onClick={() => handleItem_click(route)} >
@@ -67,6 +71,15 @@ export default function ({ classes, open }) {
                             </div>
                         );
                     })}
+                    {
+                        isLogin && <div>
+                            <ListItem button onClick={() => dispatch(logout())} >
+                                <ListItemIcon><PowerSettingsNewIcon color='primary'/></ListItemIcon>
+                                <ListItemText primary={"Log out"} />
+                            </ListItem>
+                            <Divider />
+                        </div>
+                    }
                 </List>
             </div>
         </Drawer>

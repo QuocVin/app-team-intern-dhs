@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
+import cookies from 'react-cookies'
 
-const accessToken = localStorage.getItem('accessToken') || undefined
+
+const accessToken = cookies.load('accessToken')
 const isLogin = accessToken ? true : false
-const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
+const user = cookies.load('user')
 const initialState = {
     isLogin: isLogin,
     accessToken: accessToken,
     user: user
-
 }
 
 export const loginStateSlice = createSlice({
@@ -19,20 +20,22 @@ export const loginStateSlice = createSlice({
             state.isLogin = true
             state.accessToken = accessToken
             state.user = data
-            localStorage.setItem('accessToken', accessToken)
-            localStorage.setItem('user', JSON.stringify(data))
+
+            cookies.save('accessToken', accessToken)
+            cookies.save('user', data)
         },
         logout: (state, action)=>{
             state.isLogin = false
             state.accessToken = undefined
             state.user = {}
-            localStorage.removeItem('accessToken')
-            localStorage.removeItem('user')
+            cookies.remove('accessToken')
+            cookies.remove('user')
+
         },
         updateUser: (state, action)=>{
             const {user} = action.payload
             state.user = user
-            localStorage.setItem('accessToken', accessToken)
+            cookies.save('user', user)
         }
     }
 })

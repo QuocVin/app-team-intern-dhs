@@ -10,7 +10,7 @@ const ProfileInfo = () => {
   const {user} = useSelector(state => state.loginState)
 
   const date_ob = new Date(user.date_ob)
-  const date_obFormat = `${date_ob.getDate()}/${date_ob.getMonth() + 1}/${date_ob.getFullYear()}`
+  const date_obFormat = `${("0" + date_ob.getDate()).slice(-2)}/${("0" + (date_ob.getMonth() + 1)).slice(-2)}/${date_ob.getFullYear()}`
   const classes = useStyles()
 
   return (

@@ -14,6 +14,9 @@ const validationInfo = (values)=>{
     if(!values.phone){
         errors.phone = 'Phone is required'
     }
+    // else if(values.phone.length !== 10){
+    //     errors.phone = 'Phone number length need to be 10'
+    // }
     const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!values.mail){
         errors.mail = 'Email is required'

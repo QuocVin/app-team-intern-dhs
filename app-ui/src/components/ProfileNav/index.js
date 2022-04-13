@@ -1,4 +1,4 @@
-import { Box, Collapse, Divider, Drawer, Icon, IconButton, List, ListItem, ListItemIcon, ListItemText, SvgIcon } from '@material-ui/core'
+import { Box, Collapse, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, SvgIcon } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import DraftsIcon from '@material-ui/icons/Drafts'
@@ -62,11 +62,11 @@ const ProfileNav = () => {
      }, [])
      
   return (
-      <Box height={'100%'} marginBottom={4}>
+      <Box marginBottom={4} marginRight={1} borderRadius={1} className={classes.container}>
           <Box borderRadius={4} onClick={()=>setShow(!show)} color={'primary'} hidden={!showButton} style={{backgroundColor: '#3f51b5', textAlign: 'right'}}>
             <IconButton style={{color: 'white'}}><Subject/></IconButton>
           </Box>
-          <Collapse in={show}>
+          <Collapse in={show} className={classes.border}>
             <List component={'nav'}>
                 {
                     listNavItems.map((item, index)=>{
@@ -83,7 +83,6 @@ const ProfileNav = () => {
                     
                 </List>
           </Collapse>
-        
       </Box>
     
   )

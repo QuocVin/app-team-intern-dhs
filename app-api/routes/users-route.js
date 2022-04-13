@@ -25,7 +25,7 @@ router.post("/create", async function (req, res, next) {
 /* PUT */
 router.put('/update/:id', async function(req, res, next) {
   try {
-    res.json(await userServ.updateUser(req.body));
+    res.json(await userServ.updateUser(req.params.id,req.body));
   } catch (err) {
     console.error(`Error while updating users`, err.message);
     next(err);

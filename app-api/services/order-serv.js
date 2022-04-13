@@ -92,6 +92,10 @@ async function getOrderByUser(id_user, page = 1) {
     WHERE id_user = ${id_user}
     LIMIT ${offset},${config.listPerPage}`
   );
+  const total = await db.query(
+    `SELECT count(id) as sl
+    FROM order_db where id_user = ${id_user}`
+  );
 
   if (rows.length) {
     return {
@@ -100,6 +104,8 @@ async function getOrderByUser(id_user, page = 1) {
       data: rows,
       page: page,
       length: rows.length,
+      total: total[0].sl,
+      limit: config.listPerPage
     };
   } else {
     return {

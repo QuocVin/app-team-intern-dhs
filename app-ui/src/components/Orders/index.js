@@ -1,16 +1,57 @@
-import {  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import {  LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import OrderItem from './OrderItem'
 import {useStyles} from './style'
+import { endpoints, API } from '../../common/api';
+import {useHistory} from 'react-router'
+import TablePaginationActions from '@material-ui/core/TablePagination/TablePaginationActions'
 
-
+const getOrders = ({id}, page = 1) =>{
+    return API.get(endpoints['ordersByUser'] + id ,{
+        params:{
+            page
+        }
+    })
+    
+}
 
 const Orders = () => {
     const classes = useStyles()
-    const handleOrderItemClick = ()=>{
-        
+    const [orders, setOrders] = useState([])
+    const user = useSelector(state => state.loginState.user)
+    const [page, setPage] = useState(0)
+    const [totalOrders, setTotalOrders] = useState(0)
+    const [rowsPerPage, setRowsPerPage] = useState(0)
+    const [isLoading, setIsLoading] = useState(true)
+
+    const history = useHistory()
+
+    const handleOrderItemClick = ({id})=>{
+        history.push(`/OrderDetail/${id}`)
     }
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
+    
+      const handleChangeRowsPerPage = (event) => {
+        // setPage(1);
+        //console.log(123);
+      };
+
+    useEffect(() => {
+      getOrders(user, page + 1).then(res => {
+          const {data, status, total, limit} = res.data
+          if(status && status === 200){
+              setOrders(data)
+              setTotalOrders(total)
+              setRowsPerPage(limit)
+          }
+          setIsLoading(false)
+      }).catch(err=> setIsLoading(false))
+    }, [page])
+
   return (
     <Paper>
         <TableContainer component={Paper}>
@@ -24,8 +65,33 @@ const Orders = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <OrderItem onClick={handleOrderItemClick}/>
+                    {
+                        isLoading ?<TableRow>
+                            <TableCell colSpan={4}><LinearProgress /></TableCell>
+                        </TableRow>
+                        : orders.map((item,i)=>
+                            <OrderItem key={i} item={item} onClick={()=>handleOrderItemClick(item)}/>
+                        )
+                    }
                 </TableBody>
+                <TableFooter>
+                    {
+                        orders.length > 0 && 
+                            <TableRow>
+                                <TablePagination
+                                colSpan={3}
+                                count={totalOrders}
+                                rowsPerPage={rowsPerPage}
+                                rowsPerPageOptions={[]}
+                                page={page}
+                                
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationActions}
+                                />
+                            </TableRow>
+                    }
+                </TableFooter>
             </Table>
         </TableContainer>
     </Paper>

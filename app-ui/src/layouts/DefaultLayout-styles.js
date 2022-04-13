@@ -119,7 +119,7 @@ export const useStyles = makeStyles((theme) => ({
 
   footer: {
     backgroundColor: "#212121",
-    minWidth: "100%",
+    maxWidth: "100%",
 
     padding: theme.spacing(3),
     overflow: "auto",
@@ -134,6 +134,19 @@ export const useStyles = makeStyles((theme) => ({
     "& .MuiSvgIcon-root": {
       color: "rgb(123, 123, 123)",
       marginRight:theme.spacing(3),
+    }
+  },
+  footerItem: {
+    marginBottom: '12px',
+    // padding: '8px',
+  },
+  footerTitle: {
+    borderBottom: '1px solid grey',
+    width: '100%',
+    padding: '4px 4px 8px',
+    marginBottom: '8px',
+    [theme.breakpoints.up('sm')]: {
+      borderBottomColor: 'transparent'
     }
   }
 }));

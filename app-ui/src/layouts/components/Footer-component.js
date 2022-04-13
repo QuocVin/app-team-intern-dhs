@@ -53,38 +53,44 @@ export default function ({ classes }) {
     return (
         <Container className={classes.footer} >
             <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    <img src={LOGO_FOOTER} alt="dhs_logo2" />
+                <Grid item xs={12} md={4} className={classes.footerItem}>
+                    <img src={LOGO_FOOTER} alt="dhs_logo2" className={classes.footerTitle}/>
+                    <Divider/>
                     <Typography>Với phương châm “Kết nối để thành công”, DHSoft luôn đặt mình ở vị trí Khách hàng, thấu hiểu nhu cầu từng Khách hàng, từ đó DHSoft đưa ra những giải pháp tối ưu giúp Doanh nghiệp quản lý hiệu quả, tiết kiệm thời gian và chi phí.</Typography>
                 </Grid>
-                <Grid item xs={3}>
-                    <Typography variant="h5">Các sản phẩm phần mềm</Typography>
-                    {PRODUCT.map((p) => {
-                        return (
-                            <Typography key={p.id + "-product"}>{p.label}</Typography>
-                        )
-                    })}
-                </Grid>
-                <Grid item xs={2}>
-                    <Typography variant="h5">Thông tin liên kết</Typography>
-                    {LINK.map((p) => {
-                        return (
-                            <Typography key={p.id + "-link"}>{p.label}</Typography>
-                        )
-                    })}
-                </Grid>
-                <Grid item xs={3}>
-                    <Typography variant="h5">Liên Hệ</Typography>
-                    {CONTACT.map((p) => {
-                        return (
-                            <div>
-                                {p.icon}
-                                <Typography key={p.id + "-link"} component="span">{p.label}</Typography>
-                            </div>
-                        )
-                    })}
-                    <FacebookIcon />
-                    <YouTubeIcon />
+                
+                <Grid item xs={12} md={8}>
+                    <Grid container spacing={4}>
+                        <Grid item xs={12} md={4} className={classes.footerItem} >
+                            <Typography variant="h5" className={classes.footerTitle}>Các sản phẩm phần mềm</Typography>
+                            {PRODUCT.map((p) => {
+                                return (
+                                    <Typography key={p.id + "-product"}>{p.label}</Typography>
+                                )
+                            })}
+                        </Grid>
+                        <Grid item xs={12} md={4} className={classes.footerItem}>
+                            <Typography variant="h5" className={classes.footerTitle}>Thông tin liên kết</Typography>
+                            {LINK.map((p) => {
+                                return (
+                                    <Typography key={p.id + "-link"}>{p.label}</Typography>
+                                )
+                            })}
+                        </Grid>
+                        <Grid item xs={12} md={4} className={classes.footerItem}>
+                            <Typography variant="h5" className={classes.footerTitle}>Liên Hệ</Typography>
+                                {CONTACT.map((p) => {
+                                    return (
+                                        <div>
+                                            {p.icon}
+                                            <Typography key={p.id + "-link"} component="span">{p.label}</Typography>
+                                        </div>
+                                    )
+                                })}
+                                <FacebookIcon />
+                                <YouTubeIcon />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Container>
