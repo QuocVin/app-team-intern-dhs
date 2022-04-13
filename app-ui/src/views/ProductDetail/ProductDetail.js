@@ -31,7 +31,7 @@ export default function ProductDetail() {
       </div>
       <div className="product-description-container">
         <h1>{product[0]?.name}</h1>
-        <h2>{product[0]?.price}</h2>
+        <h2>$ {product[0]?.price}</h2>
         <p>{product[0]?.description}</p>
         <div className="btn-add-to-cart">
           <Link to="/cart">

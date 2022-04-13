@@ -30,7 +30,7 @@ export default function Home() {
                   <div className="des-container">
                     <div className="price-container">
                       <div className="title">{product.name}</div>
-                      <div className="price">VND {product.price}</div>
+                      <div className="price">$ {product.price}</div>
                     </div>
                     <div className="buy-container">
                       <Link to= {`/ProductDetail/${product.id}`}>
