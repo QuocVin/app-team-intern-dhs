@@ -42,18 +42,6 @@ function ChangePassword() {
         setErrors(validationInfo(passwordData))
         setIsConfirm(true)
     }
-    const checkUser = (user)=>{
-        let flag = false
-
-        axios.post(API,user).then(res=>{
-            const {status} = res.data
-            if(status && status === 200){
-                flag = true
-            }
-        })
-
-        return flag
-    }
     const changePassword = ({username, password, newPassword})=>{
         return API.post(endpoints.changePassword, {
             username: username, 
