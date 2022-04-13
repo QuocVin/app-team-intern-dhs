@@ -58,4 +58,31 @@ router.get("/order-detail/:id_order", async function (req, res, next) {
   }
 });
 
+router.get("/get-month-total-by-brand", async function (req, res, next) {
+  try {
+    res.json(await orderServ.getTotalMonthGroupBrand(req.query));  
+  } catch (err) {
+    console.error(`Error while getting total-months `, err.message);
+    next(err);
+  }
+});
+
+router.get("/get-year-total", async function (req, res, next) {
+  try {
+    res.json(await orderServ.getYearTotal(req.query));  
+  } catch (err) {
+    console.error(`Error while getting total-months `, err.message);
+    next(err);
+  }
+});
+
+router.get("/get-chart-year", async function (req, res, next) {
+  try {
+    res.json(await orderServ.getChartYear(req.query));  
+  } catch (err) {
+    console.error(`Error while getting total-months `, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;

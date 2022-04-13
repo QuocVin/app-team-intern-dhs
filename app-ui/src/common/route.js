@@ -117,7 +117,8 @@ export const RoutesApp = {
         icon: InfoIcon,
         needLogin: true,
         isLoginRoute: false,
-    },Orders: {
+    },
+    Orders: {
         exact: true,
         id: RouteNames.Orders,
         label: "Orders",
@@ -140,6 +141,14 @@ export const RoutesApp = {
 }
 
 export const routeDrawer = {
+    Dashboard: {
+        exact: true,
+        id: RouteNames.Dashboard,
+        label: "Dashboard",
+        path: RoutePaths.Dashboard,
+        component: DashboardView,
+        icon: DashboardIcon
+    },
     Home: {
         exact: true,
         id: RouteNames.Home,
