@@ -34,10 +34,10 @@ function App() {
   return (
     <Router>
       {/* {loggedIn ? (
-        <Switch>
+        <Switch> test source tree
           <Route key={1} path="/" render={(props) => <GuestLayout {...props} />} />
         </Switch>
-      ) : (
+      ) : (  
         <Switch>
           <Route key={0} path="/" render={(props) => <GuestLayout {...props} />} />
         </Switch>
